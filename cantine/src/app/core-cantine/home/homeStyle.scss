@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
+
+
+main {
+    margin: 0.5%;
+    height:90vh;
+
+    background: url("../../../assets/mainImage.jpg"); 
+    background: url("../../../assets/mainImage3.jpg"); 
+    background: url("../../../assets/mainImage4.jpg");
+    animation: mainImageAnimation 15s ease-in 0s infinite  alternate forwards ;
+    
+}
+
+
+.text-main {
+    color: rgb(226, 226, 214);
+    width: 30%;
+    position: absolute; 
+    margin-left: 10%;
+    margin-top: 15%;
+  
+}
+
+
+
+.text-main-title{
+  font-size: 5.5rem;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+.text-main-important{
+    font-weight: bold;
+ }
+
+
+@keyframes mainImageAnimation  {
+    0% {
+        background: url("../../../assets/mainImage.jpg")  no-repeat   ;
+        background-size : 100% 100%;
+    }
+    50% {
+        background: url("../../../assets/mainImage3.jpg")  no-repeat  ;
+        background-size : 100% 100%;
+    }
+    100% {
+        background: url("../../../assets/mainImage4.jpg")  no-repeat  ;
+        background-size : 100% 100%;
+    }
+
+}
+
+@media (max-width :  694px ) {
+      main{
+        height: 80vh;
+        background-size: 80%  80%;
+      }
+      .text-main{
+        width: 50%;
+      }
+      .text-main-title{
+       font-size: 2.5rem;
+      }
+}

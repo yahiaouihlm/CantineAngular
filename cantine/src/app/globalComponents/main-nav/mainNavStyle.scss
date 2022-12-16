@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
+.list-container{
+     display: none;
+}
+
+// la  nav  barre 
+nav {
+   background-color:  rgb(197, 197, 197);
+   padding-top: 0px;
+   padding-bottom: 0px;
+}
+img{
+     margin-left: 25%;
+     width: 50px;
+}
+
+
+.nav-btns button{
+  padding: 0px;  
+}
+
+.middle-title{
+    font-size: 1rem;
+     margin-left:11% ;
+    font-weight: 700;
+}
+.navbar-brand{
+     line-height: 0.9rem;
+ }
+ 
+.logo-title{
+     font-family: 'Oswald', sans-serif;
+}
+
+
+.d-flex{
+     width: 60%;
+     margin-left: 2%;
+}   
+.nav-btns{
+   position: relative;
+   width: 30%;
+  margin-left: 5vw;
+     }
+.btn-connexion {
+      position: absolute;
+      right: 3vw;
+     }
+
+.btn-search{
+   width: 25%;
+   margin-left: -0.4vw;
+}
+// .btn-connexion:hover ,  .btn-panier:hover{
+//     background-color: hsla(204, 2%, 59%, 0.685);
+//     -webkit-box-shadow: -1px -2px 16px -2px #000000; 
+//     box-shadow: -1px -2px 16px -2px #000000;
+// }
+// {
+
+//      background-color: hsla(204, 2%, 59%, 0.685);
+// }
+
+@media (max-width: 991px){
+     .list-container{
+           display: block;
+     }
+    .logo-title {
+       font-size: 1.2rem;
+    }
+    .nav-btns{
+     width: 99%;
+     background-color: aqua;
+    }
+
+    .conteur{
+       display: none;
+   }
+
+   .middle-title{
+     font-size: 0.7rem;
+     margin-left:25% ;
+   }
+
+}
+
