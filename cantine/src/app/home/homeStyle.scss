@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
 
-main {
+header {
     margin: 0.5%;
     height:90vh;
 
-    background: url("../../../assets/mainImage.jpg"); 
-    background: url("../../../assets/mainImage3.jpg"); 
-    background: url("../../../assets/mainImage4.jpg");
+    background: url("../../assets/mainImage.jpg"); 
+    background: url("../../assets/mainImage3.jpg"); 
+    background: url("../../assets/mainImage4.jpg");
     animation: mainImageAnimation 15s ease-in 0s infinite  alternate forwards ;
     
 }
@@ -37,15 +37,15 @@ main {
 
 @keyframes mainImageAnimation  {
     0% {
-        background: url("../../../assets/mainImage.jpg")  no-repeat   ;
+        background: url("../../assets/mainImage.jpg")  no-repeat   ;
         background-size : 100% 100%;
     }
     50% {
-        background: url("../../../assets/mainImage3.jpg")  no-repeat  ;
+        background: url("../../assets/mainImage3.jpg")  no-repeat  ;
         background-size : 100% 100%;
     }
     100% {
-        background: url("../../../assets/mainImage4.jpg")  no-repeat  ;
+        background: url("../../assets/mainImage4.jpg")  no-repeat  ;
         background-size : 100% 100%;
     }
 
@@ -62,4 +62,9 @@ main {
       .text-main-title{
        font-size: 2.5rem;
       }
+}
+
+
+section {
+    margin-top: 10%;
 }

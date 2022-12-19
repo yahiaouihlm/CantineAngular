@@ -3,22 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {MatToolbarModule} from '@angular/material/toolbar'
-import { CoreCantineModule } from './core-cantine/core-cantine.module';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { MainFooterComponent } from './main-footer/main-footer.component';
+import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    CoreCantineModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule
-  ],
+    declarations: [
+        AppComponent,
+        SignInComponent,
+        MainNavComponent,
+        MainFooterComponent,
+        HomeComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
 
-  providers: [],
-  bootstrap: [AppComponent]
+    ]
 })
 export class AppModule { }
