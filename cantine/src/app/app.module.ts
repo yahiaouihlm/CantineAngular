@@ -7,7 +7,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { MainFooterComponent } from './main-footer/main-footer.component';
 import { HomeComponent } from './home/home.component';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { HomeComponent } from './home/home.component';
         SignInComponent,
         MainNavComponent,
         MainFooterComponent,
-        HomeComponent
+        HomeComponent,
+        SignUpComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -23,6 +25,7 @@ import { HomeComponent } from './home/home.component';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        MatFormFieldModule
 
     ]
 })
