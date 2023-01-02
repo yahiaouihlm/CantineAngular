@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { HomeComponent } from './core-cantine/home/home.component';
+import { SignInComponent } from './Authentification/sign-in/sign-in.component';
+import { SignUpComponent } from './Authentification/sign-up/sign-up.component';
 
 
 const routes: Routes = [
