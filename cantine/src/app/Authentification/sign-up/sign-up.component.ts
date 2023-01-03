@@ -1,30 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import Validation from './validation';
+import { SignService } from 'src/app/services/sign.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: [ './signupStyle.scss'
-  ]
+  styleUrls: [ './signupStyle.scss'] , 
+  providers : [SignService]
 })
 export class SignUpComponent  implements OnInit {
      
      signupform: FormGroup = new FormGroup({
           fullname: new FormControl(''),
           username: new FormControl(''),
-          userbirthday : new FormControl(''),
+          birthday : new FormControl(''),
           email: new FormControl(''),
           password: new FormControl(''),
           confirmPassword: new FormControl(''),
           acceptTerms: new FormControl(false),
         });
         submitted = false;
- constructor  (private formBuilder: FormBuilder){
+        show =  true ;  
+ constructor  (private formBuilder: FormBuilder, private signService : SignService,  private route :  Router){
 
  }
      ngOnInit(): void {
-       this.signupform =  this.formBuilder.group({
-          fullname: ['', Validators.required],
+          this.signupform =  this.formBuilder.group({
+          fullname: ['', 
+                    [
+                      Validators.required,
+                      Validators.maxLength(16)
+                ]
+             ],
           username: [
                '',
                [
@@ -34,7 +42,7 @@ export class SignUpComponent  implements OnInit {
                ]
              ],
 
-          userbirthday : ['' , Validators.required], 
+          birthday : ['' , Validators.required], 
           email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@social.aston-ecole.com')]],
           password: [
                '',
@@ -64,13 +72,16 @@ export class SignUpComponent  implements OnInit {
 
 
       onSubmit(): void {
+          console.log("i have made it true ");
+          this.show =  false ; 
           this.submitted = true;
-           
           if (this.signupform.invalid) {
             return;
           }
       
-          console.log(JSON.stringify(this.signupform.value, null, 2));
+         console.log('--- call  to service ------');
+         this.signService.signUp(this.signupform); 
+         
         }
 
 
@@ -78,6 +89,9 @@ export class SignUpComponent  implements OnInit {
           this.submitted = false;
           this.signupform.reset();
         }
-
+      
+        OnAnser () : boolean {
+           return this.show ;  
+        }
        
 }

@@ -11,7 +11,7 @@
   height: 300px;
   "></div>
 
-<main>
+<main class="main-signup" *ngIf="OnAnser()">
   <section class="h-10 gradient-form" >
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -39,6 +39,9 @@
                         />
                         <div *ngIf="submitted && f['fullname'].errors" class="invalid-feedback">
                           <div *ngIf="f['fullname'].errors['required']"> Nom  est requis </div>
+                          <div *ngIf="f['fullname'].errors['maxlength']">
+                            votre Nom  doit pas dépasser 16 characters
+                          </div>
                         </div>
                       </div>
                   
@@ -79,13 +82,13 @@
                         <label> Date de Naissance</label>
                         <input 
                          type="date"
-                         formControlName="userbirthday"
+                         formControlName="birthday"
                          class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['userbirthday'].errors }"
+                         [ngClass]="{ 'is-invalid': submitted && f['birthday'].errors }"
                          />
 
-                         <div *ngIf="submitted && f['userbirthday'].errors" class="invalid-feedback">
-                          <div *ngIf="f['userbirthday'].errors['required']"> date de naissace est requis </div>
+                         <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
+                          <div *ngIf="f['birthday'].errors['required']"> date de naissace est requis </div>
                         </div>
                        </div>
                       
@@ -156,111 +159,6 @@
                       </div>
                     </form>
                   </div>
-
-                    
-                  
-
-                  <!--                     
-                  <form  name="form"  #signUpForm="ngForm"  >
-                    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="name">Nom : </label>
-                      <input type="text" name="name" class="form-control" 
-                        placeholder=" Votre Nom  "
-                        pattern="^[a-zA-Zàéèç]{3,30}$"
-                        required />
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="name">Nom : </label>
-                      <input type="text" name="name" class="form-control"  [(ngModel)]="form.name" #name="ngModel"
-                        placeholder=" Votre Nom  "
-                        pattern="^[a-zA-Zàéèç]{3,30}$"
-                        required />
-                    </div>
-                     
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="familyname">Nom  De Famille : </label>
-                        <input type="text" name="familyname"  class="form-control"
-                        [(ngModel)]="form.familyname"  #familyname ="ngModel" placeholder=" Votre Nom de Famille " 
-                        pattern="^[a-zA-Zàéèç]{3,30}$"
-                        required/>
-                      </div>
-                     
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="email">Email :  </label>
-                        <input [(ngModel)]="form.email"  #email="ngModel" 
-                         type="email" name="email" class="form-control" 
-                          placeholder=" exmple@social.aston-ecole.com " />
-                       
-                          <div class="password-not-same" *ngIf="!isvalidEmail() && signUpForm.submitted">
-                            <p class="text-center">Email  Invalid Il doit etre sous form exmple@social.aston-ecole.com</p>
-                          </div>
-                      </div>
-                    
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="birthday">Date De Naissance :  </label>
-                        <input  name="birthday" [(ngModel)]="form.birthday"
-                        type="date" class="form-control"/>
-                      </div>
-  
-
-
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="password">mot de passe </label>
-                      <input  name="password" [(ngModel)]="form.password"
-                       type="password"  class="form-control"  placeholder="Your Password"  />
-                    </div>
-  
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="confirmation"> Confirmation </label>
-                        <input  name="confirmation"  [(ngModel)]="form.confirmation"
-                          type="password" class="form-control"  placeholder="Your Password"  />
-                      </div>
-                         <div class="password-not-same" [hidden]="isSamePassword()">
-                            <p class="text-center"> Les Deux mot de passes ne Correspondent pas</p>
-                         </div>
-                    
-  
-                    <div class="d-flex align-items-center justify-content-center pb-4">
-                    
-                      <button  type="submit" class="btn btn-outline-danger"
-                       [disabled]="!signUpForm.form.valid && isSamePassword()"
-    
-                      > S'inscrire</button>
-                    </div>
-                  </form>
-                -->
-  
                 </div>
               </div>
               <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -277,7 +175,15 @@
       </div>
     </div>
   </section>
- 
  </main>
-
+<main *ngIf="!OnAnser()" style="margin: 10vh auto 15vh auto  ;"  >
+  <div class="card text-center" style="border: none;">
+    <img src="../../../assets/checked.png"  alt="checked image registration "
+    style="width : 17rem ;  margin: auto; padding: auto;">
+    <div class="card-body">
+      <h2 class="card-title" style="color: rgb(60, 130, 235);" > Votre Inscription est Bien Enregistré </h2> <br>
+      <a href="#" class="btn btn-primary">Je me connecte </a>
+    </div>
+  </div>
+</main>
 <app-main-footer></app-main-footer>
