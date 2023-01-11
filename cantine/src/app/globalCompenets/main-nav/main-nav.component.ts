@@ -13,7 +13,8 @@ export class MainNavComponent  implements OnInit {
  
 
   goToSignIn() : void {
-    this.route.navigate(['cantine/user/signIn']);
+    
+    this.route.navigate(['cantine/signIn']);
     console.log("Hello world !  ");
     
   }

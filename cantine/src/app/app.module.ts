@@ -10,6 +10,7 @@ import { SignUpComponent } from './Authentification/sign-up/sign-up.component';
 import { HomeComponent } from './core-cantine/home/home.component';
 import { ProfileComponent } from './Authentification/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 //import { CoreCantineModule } from './core-cantine/core-cantine.module';
 
 
@@ -29,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   providers: [],

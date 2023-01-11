@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Answer } from '../Models/Answer';
 import { AuthAnswer } from '../Models/AuthAnswer';
+import { User } from '../Models/User';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class SignService {
   readonly ENDPOINTSIGNUP  =  "cantine/user/signUP"  
   readonly ENDPOINTLOGIN  =  "login"
   readonly ENDPOINTEXISTINGEMAIL ="cantine/user/existemail"  
+  readonly ENDPOINTMYPROFILE =  "cantine/user/myprofile"
   constructor(private  httpClient : HttpClient) { }
 
 
@@ -38,6 +40,9 @@ export class SignService {
          return this.httpClient.post<Answer> ( (this.API_URL + this.ENDPOINTEXISTINGEMAIL), useremail )
   }
   
+  getProfile (useremail:  string ) {
+    return this.httpClient.post<User>( (this.API_URL + this.ENDPOINTMYPROFILE) ,  useremail) ; 
+  }
 
 
 

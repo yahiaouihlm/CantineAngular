@@ -3,8 +3,7 @@ import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validator, 
 import Validation from './validation';
 import { SignService } from 'src/app/services/sign.service';
 import { Router } from '@angular/router';
-import { Answer } from 'src/app/Models/Answer';
-import { catchError, tap } from 'rxjs';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
