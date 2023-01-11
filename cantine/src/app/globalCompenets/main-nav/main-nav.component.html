@@ -45,11 +45,16 @@
       <div class="nav-btns">
 
         <button type="button" class="btn btn-panier">Mon Panier <i class="fa-solid fa-cart-shopping"></i></button>
-        <button type="button" class="btn  btn-connexion" (click)="goToSignIn()">Connexion <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+        <button *ngIf="Username == 'Connexion'"  type="button" class="btn  btn-connexion" (click)="goToSignIn()">Connexion 
+          <i  class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+
+        <button  *ngIf="Username !='Connexion' " type="button" class="btn btn-connexion" (click)="goToProfile()">{{Username}} 
+          <i class="fa-solid fa-user"></i>
         </button>
 
       </div>
-
     </div>
   </div>
 </nav>
