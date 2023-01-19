@@ -3,4 +3,5 @@ export interface AuthAnswer{
     message : string 
     status :  string 
     user :  string 
+    role : string
 }

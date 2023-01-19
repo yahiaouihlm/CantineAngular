@@ -11,6 +11,7 @@ import { HomeComponent } from './core-cantine/home/home.component';
 import { ProfileComponent } from './Authentification/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MealsComponent } from './core-cantine/meals/meals.component';
 //import { CoreCantineModule } from './core-cantine/core-cantine.module';
 
 
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignUpComponent,
     HomeComponent,
     ProfileComponent,
+    MealsComponent,
   ],
   imports: [
     BrowserModule,

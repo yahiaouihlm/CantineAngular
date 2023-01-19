@@ -1,17 +1,14 @@
 .gradient-custom-2 {
-    /* fallback for old browsers */
-   // background: #fccb90;
-    
-    /* Chrome 10-25, Safari 5.1-6 */
-    //background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
     background: url('../../../assets/form-login.jpg') no-repeat   ;
+}
 
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-   // background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    }
+.btn-login{
+    margin-top: 5%;
+  width: 50%;   
+}
     
-    @media (min-width: 768px) {
-    .gradient-form {
+ @media (min-width: 768px) {
+ .gradient-form {
     height: 100vh !important;
     }
     }
@@ -23,8 +20,4 @@
 }
 .form-logo {
     width: 5vw;
-}
-
-main{
-    margin-bottom: 15px ;
 }

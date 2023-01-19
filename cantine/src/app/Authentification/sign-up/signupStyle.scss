@@ -1,12 +1,12 @@
-.gradient-custom-2 {
-   
-     //background-color: red;
-   //  background-image: url('../../../assets/mainimage3.jpg') ;
-   background: url('../../../assets/mainimage3.jpg') no-repeat   ;
-
+.form-container {
+    width: 80%;
 }
-    
- 
+.submit-btn{
+    margin-top: 7vh;
+}
+.submit-btn button{
+    width: 45%;
+}
 
 @media (min-width: 768px) {
     .gradient-form {
@@ -20,11 +20,11 @@
     }
 }
 .form-logo {
-    width: 5vw;
+    width: 8vw;
 }
 
 .main-signup{
-    margin-bottom: 50vh ;
+    margin-bottom: 40% ;
 }
 .password-not-same{
     font-size: 0.8rem;

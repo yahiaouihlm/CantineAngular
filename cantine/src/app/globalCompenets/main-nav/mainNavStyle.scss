@@ -6,8 +6,7 @@
 // la  nav  barre 
 nav {
    background-color:  rgb(197, 197, 197);
-   padding-top: 0px;
-   padding-bottom: 0px;
+
 }
 img{
      margin-left: 25%;
@@ -15,9 +14,24 @@ img{
 }
 
 
-.nav-btns button{
-  padding: 0px;  
+
+
+.nav-btns{
+     margin: auto;
+     padding: auto;
 }
+.nav-btns button{
+      margin-left: 20px;  
+}
+
+.d-flex{
+     width: 50%;
+     margin-left: 2%;
+
+}   
+
+
+
 
 .middle-title{
     font-size: 1rem;
@@ -33,24 +47,8 @@ img{
 }
 
 
-.d-flex{
-     width: 60%;
-     margin-left: 2%;
-}   
-.nav-btns{
-   position: relative;
-   width: 30%;
-  margin-left: 5vw;
-     }
-.btn-connexion {
-      position: absolute;
-      right: 3vw;
-     }
 
-.btn-search{
-   width: 25%;
-   margin-left: -0.4vw;
-}
+
 // .btn-connexion:hover ,  .btn-panier:hover{
 //     background-color: hsla(204, 2%, 59%, 0.685);
 //     -webkit-box-shadow: -1px -2px 16px -2px #000000; 

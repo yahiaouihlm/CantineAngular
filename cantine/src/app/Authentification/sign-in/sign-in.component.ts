@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit{
    isAuthenticated =  false ; 
    token  :  string = '' ; 
    username  : string  =  '';  
-
+   role :  string = ''; 
   constructor (private route  : Router ,  private formBuilder: FormBuilder , private signService: SignService ){}
   
   ngOnInit(): void {
@@ -58,13 +58,17 @@ export class SignInComponent implements OnInit{
     .subscribe({
         next : next => {
           if (next.Authorization!= undefined && next.Authorization!==''
-              && next.message==='you are authenticated' && next.status ==='OK' && next.user!=undefined
+              && next.message==='you are authenticated' && next.status ==='OK' && next.user!=undefined &&  next.role !=undefined
              ){
+              console.log("token");
+              console.log(next);
               this.token =  next.Authorization; 
               this.username = next.user
               this.isAuthenticated =  true ; 
+              this.role = next.role ;
               localStorage.setItem('Authorization' , this.token);
               localStorage.setItem('user' ,  this. getUserNam(this.username))
+              localStorage.setItem('role',  this.role)
               this.route.navigate(['cantine']);
           }
           else if  (next.Authorization== undefined && next.message == 'Authentication error'  &&

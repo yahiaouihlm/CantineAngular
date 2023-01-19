@@ -4,12 +4,14 @@ import { HomeComponent } from './core-cantine/home/home.component';
 import { SignInComponent } from './Authentification/sign-in/sign-in.component';
 import { SignUpComponent } from './Authentification/sign-up/sign-up.component';
 import { ProfileComponent } from './Authentification/profile/profile.component';
+import { MealsComponent } from './core-cantine/meals/meals.component';
 
 
 const routes: Routes = [
   {path :'cantine/signIn',  component : SignInComponent}, 
   {path: 'cantine/signUp', component :  SignUpComponent},
-  {path: 'cantine/user/myprofile', component : ProfileComponent} ,
+  {path : 'cantine/meals' , component :  MealsComponent},
+  {path: 'cantine/user/myprofile', component : ProfileComponent},
   {path :'cantine' ,  component:HomeComponent },
   {path : '' ,  redirectTo:'/cantine',  pathMatch: 'full'}
   

@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Answer } from '../Models/Answer';
 import { AuthAnswer } from '../Models/AuthAnswer';
-import { User } from '../Models/User';
+import { UserAnswer } from '../Models/UserAnswer';
 
 
 @Injectable({
@@ -40,8 +40,16 @@ export class SignService {
          return this.httpClient.post<Answer> ( (this.API_URL + this.ENDPOINTEXISTINGEMAIL), useremail )
   }
   
-  getProfile (useremail:  string ) {
-    return this.httpClient.post<User>( (this.API_URL + this.ENDPOINTMYPROFILE) ,  useremail) ; 
+  getProfile (useremail:  Object ) {
+    let  token = '' ;
+    let   storage = localStorage.getItem('Authorization')
+    if (storage === null)
+        storage =''
+    else {
+      token =  storage;  
+    }
+    const headers = new HttpHeaders().set('Authorization',token );
+    return this.httpClient.post<UserAnswer>( (this.API_URL + this.ENDPOINTMYPROFILE) ,  useremail,  {headers}) ; 
   }
 
 
