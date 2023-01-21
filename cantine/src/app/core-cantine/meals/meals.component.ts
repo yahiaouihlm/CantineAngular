@@ -20,28 +20,38 @@ export class MealsComponent  implements OnInit{
  
  
   ngOnInit(): void {
+   console.log( localStorage);
+   
+
     this.getMeals();  
-    let local =  localStorage.getItem("role")
+    let local =  localStorage.getItem("rol")
     if (local !=undefined)
       this.role =  local;   
     
   }
-
+   
   
+   
+
   getMeals() {
+    let i= 0 ;
     this.cantineHandlerService.getMeal()
     .pipe(
       catchError((err) => this.handleError(err, null))
     )
         .subscribe({
              next  : next => {
-                     this.meals =  next.data ;  
-                   next.data.forEach((element : Meal) => {
-                       // console.log(element.image)    
-                   });
+                     this.meals =  next.data ;                       
+                     next.data.forEach((element : Meal) => {
+                          console.log(element.image.image)    
+                      });
   }});  
     }
+  
 
+    addMeal() : void {
+         this.route.navigate(['cantine/meals/addMeal'])
+    }
   
     private handleError(error: Error, errorValue: any) {
       console.error(error);

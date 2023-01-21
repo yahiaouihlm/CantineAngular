@@ -6,7 +6,7 @@
     "></div>
       <h1 class="center">  Nos  Plats </h1>
       <div *ngIf="role=='admin'" class="btn-add center ">
-            <button  class="btn"> j'ajoute un plat </button>
+            <button  (click)="addMeal()"  class="btn"> j'ajoute un plat </button>
       </div>
 
       <div class="container">
@@ -15,7 +15,7 @@
                    <div *ngFor=" let meal of meals " class="col  m4  s6">
                         <div class="card horizontal ">
                           <div class=" center ">
-                               <img  class="card-image" src="../../../assets/mainImage.jpg"  alt=""> 
+                               <img  class="card-image" [src]= meal.image.image   alt=""> 
                               </div>
                           <div class="card-stacked">
                               <div class="card-content">
@@ -27,7 +27,7 @@
                         </div>
                              <div class="meal-handler center" style="margin-bottom:5% ;">
                                    <button *ngIf="role == 'admin'" class=" btn"> Modifier Le Plat </button>
-                                   <button *ngIf="role == 'user'" class=" btn"> Ajouter Au Panier </button>
+                                   <button *ngIf="role != 'admin'" class=" btn"> Ajouter Au Panier </button>
 
                               </div>
 

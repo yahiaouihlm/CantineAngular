@@ -46,8 +46,6 @@ export class ProfileComponent   implements OnInit {
                      this.user.credit =  next.data.credit; 
                      this.user.email =  next.data.email ;  
                      this.user.birthday = next.data.birthday ; 
-                 
-             
                  }
                  else {
                   console.log(next);
@@ -101,6 +99,7 @@ export class ProfileComponent   implements OnInit {
   deconnexion () : void  {
      localStorage.removeItem('Authorization'); 
      localStorage.removeItem('user'); 
+     localStorage.removeItem('rol'); 
      this.route.navigate(['cantine']);
   }
   get f(): { [key: string]: AbstractControl } {

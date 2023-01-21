@@ -9,9 +9,10 @@ import { SignInComponent } from './Authentification/sign-in/sign-in.component';
 import { SignUpComponent } from './Authentification/sign-up/sign-up.component';
 import { HomeComponent } from './core-cantine/home/home.component';
 import { ProfileComponent } from './Authentification/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MealsComponent } from './core-cantine/meals/meals.component';
+import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.component';
 //import { CoreCantineModule } from './core-cantine/core-cantine.module';
 
 
@@ -27,6 +28,7 @@ import { MealsComponent } from './core-cantine/meals/meals.component';
     HomeComponent,
     ProfileComponent,
     MealsComponent,
+    NewMealComponent,
   ],
   imports: [
     BrowserModule,
