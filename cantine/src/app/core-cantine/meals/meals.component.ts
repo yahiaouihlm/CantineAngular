@@ -53,6 +53,14 @@ export class MealsComponent  implements OnInit{
          this.route.navigate(['cantine/meals/addMeal'])
     }
   
+    
+    
+    editmeal(id:number) :  void  {
+          this.route.navigate(['cantine/meals/editMeal',  id ])
+    }
+
+
+
     private handleError(error: Error, errorValue: any) {
       console.error(error);
       return of(errorValue);

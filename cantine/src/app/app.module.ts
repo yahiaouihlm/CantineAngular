@@ -13,6 +13,7 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MealsComponent } from './core-cantine/meals/meals.component';
 import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.component';
+import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.component';
 //import { CoreCantineModule } from './core-cantine/core-cantine.module';
 
 
@@ -29,6 +30,7 @@ import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.compone
     ProfileComponent,
     MealsComponent,
     NewMealComponent,
+    EditMealComponent
   ],
   imports: [
     BrowserModule,

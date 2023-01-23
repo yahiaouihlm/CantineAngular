@@ -26,11 +26,9 @@
                               </div>
                         </div>
                              <div class="meal-handler center" style="margin-bottom:5% ;">
-                                   <button *ngIf="role == 'admin'" class=" btn"> Modifier Le Plat </button>
+                                   <button *ngIf="role == 'admin'" class=" btn"  (click)="editmeal( meal.id )"> Modifier Le Plat </button>
                                    <button *ngIf="role != 'admin'" class=" btn"> Ajouter Au Panier </button>
-
                               </div>
-
                       </div>
                    </div>
             </div>
