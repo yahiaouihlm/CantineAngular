@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MealsComponent } from './core-cantine/meals/meals.component';
 import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.component';
 import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.component';
+import { TestComponent } from './test/test.component';
 //import { CoreCantineModule } from './core-cantine/core-cantine.module';
 
 
@@ -30,7 +31,8 @@ import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.comp
     ProfileComponent,
     MealsComponent,
     NewMealComponent,
-    EditMealComponent
+    EditMealComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

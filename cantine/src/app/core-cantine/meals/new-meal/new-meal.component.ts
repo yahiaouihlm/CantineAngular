@@ -22,7 +22,7 @@ export class NewMealComponent implements OnInit{
 
   submitted = false;
   validatQuantity =  true ; 
-  image ! :  any; 
+  image ! :  File; 
 
   constructor  (  private formBuilder: FormBuilder, private cantineHandlerService: CantineHandlerService  ) {}
   ngOnInit(): void {
@@ -55,37 +55,24 @@ export class NewMealComponent implements OnInit{
   get f(): { [key: string]: AbstractControl } {
     return this.newmeal.controls;
       }
+
+
+
+
+
+
+
+
+
+
   
   onChange = ($event : Event) =>{
       const target  = $event.target as HTMLInputElement ; 
       const file  : File =  (target.files as FileList)[0]
-      this.convertToBase64(file);      
+        this.image =  file  ;  
       } 
           
-  convertToBase64(file: File) {
-      const observable =  new Observable((subscriber :  Subscriber<any> ) =>{
-         this.readFile(file ,  subscriber)
-      });      
-      observable.subscribe ((res) =>{     
-         this.image =  res ;
-                
-      })
-    }
-          
-  readFile(file: File, subscriber: Subscriber<any>) {
-      const filereader  =  new FileReader(); 
-      filereader.readAsDataURL(file);
-      filereader.onload = ()=>{
-          subscriber.next (filereader.result)
-          subscriber.complete();
-       }
-      filereader.onerror = () =>{
-          subscriber.error();
-          subscriber.complete()
-       }
-    }
-
-
+ 
     sendmeal () :  void {
        const  meal :  object = {
         categorie : this.newmeal.controls['mealcategory'].value,
@@ -96,7 +83,15 @@ export class NewMealComponent implements OnInit{
         image :  this.image
        } 
 
-       this.cantineHandlerService.newMeal(meal).subscribe({
+       
+       const formData: FormData = new FormData(); 
+    formData.append('image', this.image);
+       formData.append('categorie',this.newmeal.controls['mealcategory'].value )
+       formData.append('description', this.newmeal.controls['mealdescription'].value);
+       formData.append('label', this.newmeal.controls['mealname'].value);
+       formData.append('prixht',  this.newmeal.controls['mealprice'].value);
+       formData.append('quantite' ,this.newmeal.controls['mealquantity'].value );
+       this.cantineHandlerService.newMeal(formData).subscribe({
            next : next =>{
                // Attendre La réponse du  serveur   et traiter  les erreurs
                  console.log(next);

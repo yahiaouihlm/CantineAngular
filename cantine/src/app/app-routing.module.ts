@@ -7,6 +7,7 @@ import { ProfileComponent } from './Authentification/profile/profile.component';
 import { MealsComponent } from './core-cantine/meals/meals.component';
 import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.component';
 import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.component';
+import { TestComponent } from './test/test.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path : 'cantine/meals/editMeal/:id' , component :  EditMealComponent}, 
   {path: 'cantine/user/myprofile', component : ProfileComponent},
   {path :'cantine' ,  component:HomeComponent },
+  {path : 'cantine/test' ,  component :  TestComponent},  
   {path : '' ,  redirectTo:'/cantine',  pathMatch: 'full'}
   
 ];

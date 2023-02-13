@@ -13,7 +13,7 @@ export class Meal {
     prixht!: number;
     quantite!: number; 
     status!: number;
-    image!:  Image;  //  je  suis  pas sur  ;  
+    image!:  string;  //  je  suis  pas sur  ;  
 
 }
 

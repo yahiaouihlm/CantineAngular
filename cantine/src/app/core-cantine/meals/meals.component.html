@@ -12,10 +12,10 @@
       <div class="container">
             <div class="row">
                  
-                   <div *ngFor=" let meal of meals " class="col  m4  s6">
+                   <div *ngFor=" let meal of meals " class="col m4 s6">
                         <div class="card horizontal ">
                           <div class=" center ">
-                               <img  class="card-image" [src]= meal.image.image   alt=""> 
+                               <img  class="card-image"  src =   {{meal.image}}  alt="">  
                               </div>
                           <div class="card-stacked">
                               <div class="card-content">

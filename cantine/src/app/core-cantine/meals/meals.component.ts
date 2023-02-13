@@ -34,17 +34,21 @@ export class MealsComponent  implements OnInit{
    
 
   getMeals() {
-    let i= 0 ;
     this.cantineHandlerService.getMeal()
     .pipe(
       catchError((err) => this.handleError(err, null))
     )
         .subscribe({
              next  : next => {
-                     this.meals =  next.data ;                       
-                     next.data.forEach((element : Meal) => {
-                          console.log(element.image.image)    
-                      });
+                    if  (next.message  == "LIST" && next.httpStatus == "OK" ) 
+                            this.meals =  next.data ;              
+                     else{
+                         console.log("erreur");
+                         
+                     }
+                    // next.data.forEach((element : Meal) => {
+                        //  console.log(element.image.image)    
+                      //});
   }});  
     }
   

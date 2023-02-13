@@ -1,6 +1,5 @@
 <app-main-nav></app-main-nav>
-<main class="main-signup">
-    <section class="h-10 gradient-form" >
+
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-xl-20">
@@ -14,6 +13,137 @@
                         <h4 class="mt-1 mb-5 pb-1"> Cantinière</h4>
                       </div>
                              <h5 class="center"> Je  modifie Le plat   </h5>
+
+                             
+                    <div class="register-form">
+                      <form [formGroup]="newmeal" (ngSubmit)="onSubmit()">
+
+                        <div class="form-group">
+                          <label>Le Nom du  Plat </label>
+                          <input
+                            type="text"
+                            formControlName="mealname"
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['mealname'].errors }"
+                            placeholder="Le Nom du  Plat "
+                          />
+                          <div *ngIf="submitted && f['mealname'].errors" class="invalid-feedback">
+                            <div *ngIf="f['mealname'].errors['required']"> Nom  du plat  est requis </div>
+                            <div *ngIf="f['mealname'].errors['maxlength']">
+                             le nom du  plat ne doit pas dépasser 16 charctéres 
+                            </div>
+                            <div *ngIf="f['mealname'].errors['minlength']">
+                                le nom du  plat ne doit avoir plus de 3  charctéres 
+                               </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Description </label>
+                            <input
+                              type="text"
+                              formControlName="mealdescription"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f['mealdescription'].errors }"
+                              placeholder=" Description  "
+                            />
+                            <div *ngIf="submitted && f['mealdescription'].errors" class="invalid-feedback">
+                              <div *ngIf="f['mealdescription'].errors['required']"> Description  du plat  est requis </div>
+                              <div *ngIf="f['mealdescription'].errors['maxlength']">
+                               le Description du  plat ne doit pas dépasser 32charctéres 
+                              </div>
+                              <div *ngIf="f['mealdescription'].errors['minlength']">
+                                  la  Description  du  plat ne doit avoir moins de 3  charctéres 
+                                 </div>
+                            </div>
+                          </div>
+                  
+
+                          <div class="form-group">
+                            <label> Prix </label>
+                            <input
+                            type="number"
+                              step="0.01"
+                              formControlName="mealprice"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f['mealprice'].errors }"
+                              placeholder=" prix  "
+                              /> 
+                            
+                            <div *ngIf="submitted && f['mealprice'].errors" class="invalid-feedback">
+                              <div *ngIf="f['mealprice'].errors['required']"> prix  est requis </div>
+                          </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label> Quantité </label>
+                            <input
+                               type="number"
+                              formControlName="mealquantity"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f['mealquantity'].errors }"
+                              placeholder="Quantité"
+                              /> 
+                              <div *ngIf="submitted && f['mealquantity'].errors" class="invalid-feedback">
+                                <div *ngIf="f['mealquantity'].errors['required']"> Quantité  est requis </div>
+              
+                              </div>
+                            
+                             
+                          </div>
+
+                     
+                          <div class="form-group">
+                            <label> Catégorie </label>
+                            <select
+                        
+                              formControlName="mealcategory"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f['mealcategory'].errors }"
+                              name="Catégorie"
+                              > 
+                              <option value="">-- Catégorie Du Plat --</option>
+                              <option value="Hamburgers">Hamburgers </option>
+                              <option value="Nuggets de poulet">Nuggets de poulet</option>
+                              <option value="Volailles cuites">Volailles cuites</option>
+                              <option value="Viandes">Viandes</option>
+                              <option value="Plats à la volaille">Plats à la volaille</option>
+                              <option value="Poulets">Poulets</option>
+                        
+                            </select>
+                       
+                              
+                            
+                            <div *ngIf="submitted && f['mealcategory'].errors" class="invalid-feedback">
+                              <div *ngIf="f['mealcategory'].errors['required']"> Catégorie  est requis </div>
+                          </div>
+                          </div>
+                         
+
+                           
+                          <div class="form-group">
+                            <label for="image"> Image </label>
+                            <input
+                               type="file"
+                              formControlName="mealImage"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f['mealImage'].errors }"
+                              accept="image/png, image/jpeg"
+                              (change)="onChange ($event)" 
+                              /> 
+                            
+                            <div *ngIf="submitted && f['mealImage'].errors" class="invalid-feedback">
+                              <div *ngIf="f['mealImage'].errors['required']"> une image  est requise </div>
+                          </div>
+                          </div>
+
+  
+                    
+                        <div class="center  submit-btn ">
+                          <button type="submit" class="btn btn-primary"> Enregistrer  </button>
+                        </div>
+                      </form>
+                    </div>
 
     </div>
     </div>
