@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { Observable, Subscriber } from 'rxjs';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 @Component({
@@ -24,7 +25,7 @@ export class NewMealComponent implements OnInit{
   validatQuantity =  true ; 
   image ! :  File; 
 
-  constructor  (  private formBuilder: FormBuilder, private cantineHandlerService: CantineHandlerService  ) {}
+  constructor  (  private formBuilder: FormBuilder, private cantineHandlerService: CantineHandlerService,  private  route :Router  ) {}
   ngOnInit(): void {
     this.newmeal =  this.formBuilder.group({
       mealname : ['',[Validators.required ,  Validators.maxLength(16) ,Validators.minLength(3)] ],
@@ -94,7 +95,9 @@ export class NewMealComponent implements OnInit{
        this.cantineHandlerService.newMeal(formData).subscribe({
            next : next =>{
                // Attendre La réponse du  serveur   et traiter  les erreurs
-                 console.log(next);
+               window.location.href = 'http://localhost:4200/cantine/meals'
+               
+               alert('Votre Plat à  éte parfaitement enregistrer '); 
                  
               }, 
 

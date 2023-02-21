@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
  
 export class MainNavComponent  implements OnInit {
-     Username :  string  = '';
+  Username :  string  = '';
+  nameorder : string ='Mon Panier';
   constructor (private route  : Router){}
  
 
@@ -26,11 +27,17 @@ export class MainNavComponent  implements OnInit {
 
   ngOnInit(): void {
      var  user =  localStorage.getItem('user'); 
+     var  role =  localStorage.getItem('rol'); 
      if (user == undefined || user === ''){
       this.Username =  "Connexion"
      }else{
       this.Username =  user ; 
      }
+     if  (role=='admin'){
+       this.nameorder="Commandes"
+     }
+     console.log(role);
+     
    
   }
 

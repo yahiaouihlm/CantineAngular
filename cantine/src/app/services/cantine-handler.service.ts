@@ -18,16 +18,42 @@ export class CantineHandlerService {
   readonly ENDPOINTMEALS = "cantine/meals";
   readonly ENDPOINTADDMEAL = "cantine/meals/add";
   readonly ENDPOINTGETMEAL = "cantine/meals/getOne"
+  readonly ENDPOINTREMOVEMEA = "cantine/meals/removeOne"; 
 
 
   constructor(private httpClient: HttpClient) {}
 
 
 
+  removemealByid (id :  string ) {
+    let  token = '' ;
+    let   storage = localStorage.getItem('Authorization')
+    if (storage === null)
+        storage =''
+    else {
+      token =  storage;  
+    }
+    const headers = new HttpHeaders().set('Authorization',token );
+    const url  =  this.API_URL + this.ENDPOINTREMOVEMEA + "/" + id ; 
+    return  this.httpClient.get <Answer>(url ,  {headers}); 
+
+  }
+
+
+  /*************************************   MEALS   *********************************************/
+
   // avoir un  plat depuis  son  ID 
-  getmealByid ( id :   number )   {
+  getmealByid ( id :   string )   {
+    let  token = '' ;
+    let   storage = localStorage.getItem('Authorization')
+    if (storage === null)
+        storage =''
+    else {
+      token =  storage;  
+    }
+    const headers = new HttpHeaders().set('Authorization',token );
     const url  =  this.API_URL + this.ENDPOINTGETMEAL + "/" + id
-         return  this.httpClient.get <MealAnser>(url); 
+         return  this.httpClient.get <MealAnser>(url ,  {headers}); 
   }
 
 
