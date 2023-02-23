@@ -15,9 +15,11 @@ import { MealsComponent } from './core-cantine/meals/meals.component';
 import { NewMealComponent } from './core-cantine/meals/new-meal/new-meal.component';
 import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.component';
 import { TestComponent } from './test/test.component';
-//import { CoreCantineModule } from './core-cantine/core-cantine.module';
-
-
+import { MenusComponent } from './core-cantine/menus/menus.component';
+import { NewMenuComponent } from './core-cantine/menus/new-menu/new-menu.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { PlatListComponent } from './core-cantine/menus/plat-list/plat-list.component';
+import { MatDialogModule}  from '@angular/material/dialog';  
 
 
 @NgModule({
@@ -32,13 +34,18 @@ import { TestComponent } from './test/test.component';
     MealsComponent,
     NewMealComponent,
     EditMealComponent,
-    TestComponent
+    TestComponent,
+    MenusComponent,
+    NewMenuComponent,
+    PlatListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatDialogModule,
     HttpClientModule
   ],
 

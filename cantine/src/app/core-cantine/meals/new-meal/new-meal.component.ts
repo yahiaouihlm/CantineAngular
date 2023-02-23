@@ -74,6 +74,8 @@ export class NewMealComponent implements OnInit{
       } 
           
  
+
+      
     sendmeal () :  void {
        const  meal :  object = {
         categorie : this.newmeal.controls['mealcategory'].value,

@@ -1,0 +1,56 @@
+  
+
+<div class="main"  style=" width: auto; height: auto;  margin: 10px;">
+
+    <div class="p-5 bg-image" style="
+background-image: url('../../../assets/mainimage4.jpg');
+height: 300px;
+"></div>
+   <h3 class="center">    choisissez un plat  à  ajouter a  votre   menus     </h3>
+
+    <div class="reset-btn center"  *ngIf="selectedmeals.length != 0">
+           <button class="btn"  (click)="restselectedmeals()"> rénitialiser </button>
+    </div>
+   <div class="container" >
+    <div class="row">
+        
+        <div *ngFor=" let meal of meals " class="col m4 s6" >
+            <div class="card horizontal ">
+                <div class=" center ">
+                            <img  class="card-image"  src =   {{meal.image}}  alt="">  
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <span>{{meal.label}}</span> <br>
+                                <span>{{meal.categorie}}</span>
+                                <p><small>{{meal.description}} </small></p>
+                                <p>  prix :   {{meal.prixht}} £ </p>
+                            </div>
+                        </div>
+
+                        <div class="meal-handler center" style="margin-bottom:5% ;">
+                                  
+                                   <div  *ngIf="checkexistingmeal(meal)==false"  class="clickbtn">
+                                       <button    (click)="addToList(meal)"    class=" btn"> Ajouter Au menu   </button>
+                                    </div>
+
+                                    <div  *ngIf="checkexistingmeal(meal)==true"  class="center">
+                                         <p   style="color: green ;"> Séléctionné </p>
+                                     </div>
+ 
+                        </div>
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="center">
+            <button  class="btn" mat-button [mat-dialog-close]="true">Terminer </button>
+        </div>
+        
+        
+    </div>
+
+    
