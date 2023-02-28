@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { last, Observable, of } from 'rxjs';
+import { ValidatorComponent } from 'src/app/globalCompenets/validator/validator.component';
 import { Meal } from 'src/app/Models/meal';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 
@@ -28,8 +30,7 @@ export class EditMealComponent implements OnInit {
     mealcategory  : new FormControl(''),
     mealImage  :  new FormControl('')
   });
-   /// meal :  Meal | null; 
-    constructor  ( private router : ActivatedRoute,private route :   Router  ,private cantineHandlerService  : CantineHandlerService)  {}
+    constructor  ( private router : ActivatedRoute,private route :   Router  ,private cantineHandlerService  : CantineHandlerService,   private matDialog :  MatDialog)  {}
  
    ngOnInit(): void {
       const param = this.router.snapshot.paramMap.get('id');
@@ -48,8 +49,22 @@ export class EditMealComponent implements OnInit {
    
 
    removeMeal( ) :  void {
-      confirm ("Voulez-vous  Vraiment supprmier Difinitivement ce plat  "); 
-        this.cantineHandlerService.removemealByid (this.idmealtoupdate).subscribe({
+    const result =  this.matDialog.open(ValidatorComponent, {
+      data: { message: "Mon message à afficher dans le dialogue" }
+    }) ;  
+    result.afterClosed(). subscribe((result) =>{
+      if  (result ===  undefined || result === 'non' )
+           console.log("il  veut pas supprimer ");
+           
+      else{
+        console.log("oui  il  veut supprimer le plat ");
+        
+      }    
+           
+        
+    })
+    
+       /* this.cantineHandlerService.removemealByid (this.idmealtoupdate).subscribe({
              next :  next => {
                     if  (next.message === "DELETED" && next.httpStatus == "OK"&& next.data !=undefined) {
                       this.route.navigate(['cantine/meals']);  
@@ -64,7 +79,7 @@ export class EditMealComponent implements OnInit {
              error : error => {    
 
              }
-        }); 
+        }); */
    }
 
 
@@ -86,6 +101,8 @@ export class EditMealComponent implements OnInit {
          this.cantineHandlerService.getmealByid(this.idmealtoupdate).pipe()
          .subscribe({
           next : next =>{
+            console.log(next);
+            
                if (next.data != undefined && next.httpStatus === "OK" &&  next.message === "FOUND"){
                      this.meal.label =  next.data.label; 
                      this.meal.categorie=  next.data.categorie; 
@@ -93,6 +110,8 @@ export class EditMealComponent implements OnInit {
                      this.meal.prixht =  next.data.prixht ; 
                      this.meal.quantite =  next.data.quantite; 
                      this.meal.image =  next.data.image;
+                     console.log(this.meal);
+                     
                   }
                   else{
                     console.log("ya une erreur");

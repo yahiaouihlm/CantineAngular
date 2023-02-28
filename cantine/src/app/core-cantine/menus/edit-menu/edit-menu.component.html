@@ -1,10 +1,6 @@
-<app-main-nav></app-main-nav>    
-<div class="p-5 bg-image" style="
-background-image: url('../../../assets/mainimage4.jpg');
- height: 300px;
- "></div>
- 
- <main class="main-signup">
+<app-main-nav></app-main-nav>
+
+<main class="main-signup">
     <section class="h-10 gradient-form" >
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,7 +15,6 @@ background-image: url('../../../assets/mainimage4.jpg');
                       <h4 class="mt-1 mb-5 pb-1"> Cantinière</h4>
                     </div>
                            <h5 class="center"> J'ajoute  Un  Menu  </h5>
-                           <h3>Il faut modifier  les  plats  </h3>
                     <div class="register-form">
                       <form [formGroup]="newmenu" (ngSubmit)="onSubmit()">
 
@@ -31,6 +26,7 @@ background-image: url('../../../assets/mainimage4.jpg');
                             class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['menuname'].errors }"
                             placeholder="Le Nom du  Menu "
+                            value="{{menuToedit.label}}"
                           />
                           <div *ngIf="submitted && f['menuname'].errors" class="invalid-feedback">
                             <div *ngIf="f['menuname'].errors['required']"> Nom  du menu  est requis </div>
@@ -51,6 +47,7 @@ background-image: url('../../../assets/mainimage4.jpg');
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menudescription'].errors }"
                               placeholder=" Description  "
+                              value="{{menuToedit.description}}"
                             />
                             <div *ngIf="submitted && f['menudescription'].errors" class="invalid-feedback">
                               <div *ngIf="f['menudescription'].errors['required']"> Description  du Menu  est requis </div>
@@ -73,6 +70,7 @@ background-image: url('../../../assets/mainimage4.jpg');
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menuprice'].errors }"
                               placeholder=" prix  "
+                              value="{{menuToedit.prixht}}"
                               /> 
                             
                             <div *ngIf="submitted && f['menuprice'].errors" class="invalid-feedback">
@@ -88,6 +86,7 @@ background-image: url('../../../assets/mainimage4.jpg');
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menuquantity'].errors }"
                               placeholder="Quantité"
+                              value="{{menuToedit.quantite}}"
                               /> 
                               <div *ngIf="submitted && f['menuquantity'].errors" class="invalid-feedback">
                                 <div *ngIf="f['menuquantity'].errors['required']"> Quantité  est requis </div>
@@ -96,19 +95,24 @@ background-image: url('../../../assets/mainimage4.jpg');
                           </div>
               
 
-                               <div class="list-plat  center"  >
-                                       <button  (click)="onOpenDialogClick()"  class="btn">  Choisir  des plats pour le menu  </button>
-                               </div>
+                        <!--  <div class="list-plat  center"  >
+                            <button  (click)="onOpenDialogClick()"  class="btn">  Choisir  des plats pour le menu  </button>
+                    </div>
 
-                             <div style="padding: 10px;" class="center" *ngIf="choosenmealformenu.length==0  && submitted==true">
-                                   <p style="color: red;">  Vous  deverriez choisir entre 1 et 4 plats </p>
-                             </div>
+                  <div style="padding: 10px;" class="center" *ngIf="choosenmealformenu.length==0  && submitted==true">
+                        <p style="color: red;">  Vous  deverriez choisir entre 1 et 4 plats </p>
+                  </div>
 
 
-                            <div *ngFor="let meal of choosenmealformenu" >
-                                   <div> plat : {{meal.label}} ||  {{meal.categorie}} ||  {{meal.prixht}}</div>
-                            </div>   
-                         
+                 <div *ngFor="let meal of choosenmealformenu" >
+                        <div> plat : {{meal.label}} ||  {{meal.categorie}} ||  {{meal.prixht}}</div>
+                 </div>   
+                  
+                 -->
+
+                         <div class="menu-imag">
+                                 <img src="{{menuToedit.image}}" alt="l'image est itrouvable ou  il  n'a  pas pu  etre charger ">
+                         </div>
 
                            
                           <div class="form-group">
@@ -127,13 +131,27 @@ background-image: url('../../../assets/mainimage4.jpg');
                           </div>
                           </div>
                           
+                      <div class="meals"  style="border: 1px solid  black;padding-top: 50px;">
 
-
+                          <div  class="center" *ngFor="let meal of menuToedit.plats">
+                              <p>{{meal.label}}  </p>
+                            </div>
+                         <div class="center">    <button class="btn"> Modifier Les Plat  De Menu</button> </div>
+                    </div>
           
-                    
-                        <div class="center  submit-btn ">
+                    <div class="validation-btn" style="padding-top: 50px;">
+                        <div class="right  submit-btn ">
                           <button type="submit" class="btn btn-primary"> Enregistrer  </button>
                         </div>
+
+                        <div class="left  submit-btn ">
+                            <button type="submit" class="btn btn-primary"> Annuler </button>
+                          </div>
+  
+                          <div class="center  submit-btn ">
+                            <button type="submit" class="btn btn-primary"> Supprimer  le menu </button>
+                          </div>
+                   </div>
                       </form>
                     </div>
                   </div>
@@ -146,15 +164,6 @@ background-image: url('../../../assets/mainimage4.jpg');
       </div>
     </section>
    </main>
-   
-
-
-
-
-
-
-
-
 
 
 

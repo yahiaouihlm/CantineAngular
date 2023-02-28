@@ -27,7 +27,7 @@ export class MealsComponent  implements OnInit{
     let local =  localStorage.getItem("rol")
     if (local !=undefined)
       this.role =  local;   
-    
+      
   }
    
   

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PlatListComponent } from '../plat-list/plat-list.component';
+import { Meal } from 'src/app/Models/meal';
 @Component({
   selector: 'app-new-meal',
   templateUrl: './new-menu.component.html',
@@ -11,9 +12,11 @@ import { PlatListComponent } from '../plat-list/plat-list.component';
   ]
 })
 export class NewMenuComponent {
-  ListMeal : [] | undefined ; 
   submitted = false;  
+  clicked  =  false;  
   image ! :  File; 
+  choosenmealformenu : Meal []   = [] ;  
+  mealsIDs : number  [] = [] ;  
   newmenu: FormGroup = new FormGroup({
     menuname: new FormControl(''),
     menudescription :  new FormControl(''),
@@ -35,13 +38,28 @@ export class NewMenuComponent {
   }
 
   onSubmit()   {
+    this.submitted =  true ; 
+     if  ( this.choosenmealformenu.length ==0 ||this.newmenu.invalid )
+          return ;  
+
+         this.sendmenu ();
 
   }
 
   
 
   onOpenDialogClick()  {
-      this.matDialog.open(PlatListComponent) ;  
+      const result =  this.matDialog.open(PlatListComponent) ;  
+      result.afterClosed(). subscribe((result) =>{
+        if  (result ===  undefined )
+             this.choosenmealformenu =  [] 
+        else{
+          this.choosenmealformenu   =  result ; 
+        }    
+             
+        this.clicked =  true ;  
+      })
+      
   }
 
 
@@ -53,11 +71,46 @@ export class NewMenuComponent {
 
 
 
+
+        
+   //  envoyer le le menu  
+  sendmenu () :  void   {
+     const formData : FormData = new FormData (); 
+     formData.append('image',this.image);
+     console.log(this.newmenu.controls['menuname'].value);
+     
+     formData.append('label', this.newmenu.controls['menuname'].value)
+     formData.append('description', this.newmenu.controls['menudescription'].value)
+     formData.append('prixht', this.newmenu.controls['menuprice'].value)
+     formData.append('quantite', this.newmenu.controls['menuquantity'].value);
+    this.mealsIDs.splice(0 ,  this.mealsIDs.length); 
+     this.choosenmealformenu.forEach((meal : Meal) =>
+       this.mealsIDs.push (+meal.id)
+        )  
+     const mealsJSON = JSON.stringify(this.mealsIDs);
+      
+    
+     formData.append('mealsIDS', mealsJSON);
+    
+     
+     this.cantineHandlerService.newMenu(formData).subscribe({
+         next : next => {
+          console.log(formData);
+              console.log(formData);
+              
+             console.log("je suis dans le next  ");
+             
+             console.log(next);
+             
+         }
+     });
+  }
+          
+
   onChange = ($event : Event) =>{
     const target  = $event.target as HTMLInputElement ; 
     const file  : File =  (target.files as FileList)[0]
       this.image =  file  ;  
     } 
-        
 
 }

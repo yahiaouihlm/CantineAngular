@@ -10,6 +10,7 @@ import { EditMealComponent } from './core-cantine/meals/edit-meal/edit-meal.comp
 import { TestComponent } from './test/test.component';
 import { MenusComponent } from './core-cantine/menus/menus.component';
 import { NewMenuComponent } from './core-cantine/menus/new-menu/new-menu.component';
+import { EditMenuComponent } from './core-cantine/menus/edit-menu/edit-menu.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path : 'cantine/meals/editMeal/:id' , component :  EditMealComponent}, 
   {path : 'cantine/menus',  component : MenusComponent},
   {path : 'cantine/menus/addMenu',  component : NewMenuComponent},
+  {path : 'cantine/menus/editMenu/:id' , component : EditMenuComponent},
   {path: 'cantine/user/myprofile', component : ProfileComponent},
   {path :'cantine' ,  component:HomeComponent },
   {path : 'cantine/test' ,  component :  TestComponent},  

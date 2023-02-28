@@ -1,4 +1,3 @@
-import { Image } from "./image";
 export interface MealAnser {
     message : string ; 
     httpStatus  :   string ; 

@@ -1,5 +1,5 @@
 import {
-  HttpClient, HttpEvent, HttpHeaders, HttpRequest
+  HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest
 } from '@angular/common/http';
 import {
   Injectable
@@ -9,6 +9,7 @@ import { Answer } from '../Models/Answer';
 import {
   MealAnser
 } from '../Models/meal';
+import { Menu, MenuAnser } from '../Models/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,73 @@ export class CantineHandlerService {
   readonly ENDPOINTADDMEAL = "cantine/meals/add";
   readonly ENDPOINTGETMEAL = "cantine/meals/getOne"
   readonly ENDPOINTREMOVEMEA = "cantine/meals/removeOne"; 
-
+  readonly ENDPOINTADDMENU ="cantine/menus/addMenu"; 
+  readonly ENDPOINTGETMENUS = "cantine/menus/getMenus"
+  readonly ENDPOINTGETMENU = "cantine/menus/getOne"
 
   constructor(private httpClient: HttpClient) {}
 
+/*************************************   Menu   *********************************************/
 
+
+getmenuByid (idmenu :  string) {
+  let  token = '' ;
+  let   storage = localStorage.getItem('Authorization')
+  if (storage === null)
+      storage =''
+  else {
+    token =  storage;  
+  }
+  const headers = new HttpHeaders().set('Authorization',token );
+  const  url =  this.API_URL + this.ENDPOINTGETMENU + "/" +  idmenu;   
+  return this.httpClient.get<MenuAnser>(url ,  {headers}); 
+}
+
+getmenus ()  {
+  let  token = '' ;
+  let   storage = localStorage.getItem('Authorization')
+  if (storage === null)
+      storage =''
+  else {
+    token =  storage;  
+  }
+  const headers = new HttpHeaders().set('Authorization',token );
+  return this.httpClient.get<MenuAnser>( (this.API_URL +  this.ENDPOINTGETMENUS ) , {headers}); 
+}
+ 
+
+
+
+
+
+ newMenu ( menu :  FormData)  {
+  let  token = '' ;
+    let   storage = localStorage.getItem('Authorization')
+    if (storage === null)
+        storage =''
+    else {
+      token =  storage;  
+    }
+    const headers = new HttpHeaders().set('Authorization',token );
+    //const params = new HttpParams().set('mealsIDS', listmeal);
+    const req = new HttpRequest('POST',  (this.API_URL + this.ENDPOINTADDMENU) ,menu ,   {
+      reportProgress: true,
+      responseType: 'json',
+      headers : headers,
+   
+    });
+   
+    return  this.httpClient.request(req); 
+ }
+
+
+
+
+
+
+
+
+/*************************************   MEALS   *********************************************/
 
   removemealByid (id :  string ) {
     let  token = '' ;
@@ -40,7 +103,7 @@ export class CantineHandlerService {
   }
 
 
-  /*************************************   MEALS   *********************************************/
+  
 
   // avoir un  plat depuis  son  ID 
   getmealByid ( id :   string )   {
@@ -85,9 +148,6 @@ export class CantineHandlerService {
       headers : headers,
     });
     return  this.httpClient.request(req); 
-
-
-
 
 
 

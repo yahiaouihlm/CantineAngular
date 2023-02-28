@@ -77,7 +77,7 @@ export class NewMealComponent implements OnInit{
 
       
     sendmeal () :  void {
-       const  meal :  object = {
+      const  meal :  object = {
         categorie : this.newmeal.controls['mealcategory'].value,
         description :  this.newmeal.controls['mealdescription'].value,
         label : this.newmeal.controls['mealname'].value,
@@ -88,7 +88,7 @@ export class NewMealComponent implements OnInit{
 
        
        const formData: FormData = new FormData(); 
-    formData.append('image', this.image);
+       formData.append('image', this.image);
        formData.append('categorie',this.newmeal.controls['mealcategory'].value )
        formData.append('description', this.newmeal.controls['mealdescription'].value);
        formData.append('label', this.newmeal.controls['mealname'].value);

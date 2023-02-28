@@ -16,4 +16,8 @@ export class HomeComponent {
   gotomeals() :  void {
     this.route.navigate(['cantine/meals']);
   }
+
+  gotomenus() :  void  {
+    this.route.navigate(['cantine/menus']); 
+  }
 }

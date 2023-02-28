@@ -19,8 +19,10 @@ import { MenusComponent } from './core-cantine/menus/menus.component';
 import { NewMenuComponent } from './core-cantine/menus/new-menu/new-menu.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PlatListComponent } from './core-cantine/menus/plat-list/plat-list.component';
-import { MatDialogModule}  from '@angular/material/dialog';  
-
+import { MatDialogModule}  from '@angular/material/dialog';
+import { EditMenuComponent } from './core-cantine/menus/edit-menu/edit-menu.component';
+import { ValidatorComponent } from './globalCompenets/validator/validator.component';
+ 
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MatDialogModule}  from '@angular/material/dialog';
     TestComponent,
     MenusComponent,
     NewMenuComponent,
-    PlatListComponent
+    PlatListComponent,
+    EditMenuComponent,
+    ValidatorComponent,
   ],
   imports: [
     BrowserModule,

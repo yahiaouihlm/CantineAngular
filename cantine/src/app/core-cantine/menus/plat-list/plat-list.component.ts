@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { catchError, of } from 'rxjs';
 import { Meal } from 'src/app/Models/meal';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
@@ -17,7 +18,7 @@ export class PlatListComponent implements  OnInit{
   selectedmeals : Meal []  =  [];  
 
 
-constructor  (private cantineHandlerService  : CantineHandlerService ) {}
+constructor  (private cantineHandlerService  : CantineHandlerService, private dialogRef: MatDialogRef<PlatListComponent>   ) {}
   ngOnInit(): void {
     this.getMeals() ;  
   }
@@ -57,7 +58,7 @@ constructor  (private cantineHandlerService  : CantineHandlerService ) {}
     }
 
     closeDialog() {
-      //this.dialogRef.close();
+      this.dialogRef.close(this.selectedmeals); 
     }
 
 
