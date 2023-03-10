@@ -1,6 +1,14 @@
 <app-main-nav></app-main-nav>
+  
 
-<main class="main-signup">
+
+
+<div *ngIf="isLoading == true " class="center" style="margin-top: 100px;">
+  <i class="fas fa-spinner fa-spin" style="font-size: 5rem;"></i>
+
+</div>
+
+<main *ngIf="isLoading == false  " class="main-signup">
     <section class="h-10 gradient-form" >
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -14,7 +22,7 @@
                       <img class="form-logo" src="../../../assets/logo.png" alt="logo">
                       <h4 class="mt-1 mb-5 pb-1"> Cantinière</h4>
                     </div>
-                           <h5 class="center"> J'ajoute  Un  Menu  </h5>
+                           <h5 class="center"> Je Modifier  Le  Menu  </h5>
                     <div class="register-form">
                       <form [formGroup]="newmenu" (ngSubmit)="onSubmit()">
 
@@ -26,7 +34,7 @@
                             class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['menuname'].errors }"
                             placeholder="Le Nom du  Menu "
-                            value="{{menuToedit.label}}"
+                        
                           />
                           <div *ngIf="submitted && f['menuname'].errors" class="invalid-feedback">
                             <div *ngIf="f['menuname'].errors['required']"> Nom  du menu  est requis </div>
@@ -47,7 +55,7 @@
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menudescription'].errors }"
                               placeholder=" Description  "
-                              value="{{menuToedit.description}}"
+                         
                             />
                             <div *ngIf="submitted && f['menudescription'].errors" class="invalid-feedback">
                               <div *ngIf="f['menudescription'].errors['required']"> Description  du Menu  est requis </div>
@@ -70,7 +78,7 @@
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menuprice'].errors }"
                               placeholder=" prix  "
-                              value="{{menuToedit.prixht}}"
+                         
                               /> 
                             
                             <div *ngIf="submitted && f['menuprice'].errors" class="invalid-feedback">
@@ -86,7 +94,7 @@
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['menuquantity'].errors }"
                               placeholder="Quantité"
-                              value="{{menuToedit.quantite}}"
+                          
                               /> 
                               <div *ngIf="submitted && f['menuquantity'].errors" class="invalid-feedback">
                                 <div *ngIf="f['menuquantity'].errors['required']"> Quantité  est requis </div>
@@ -145,13 +153,13 @@
                         </div>
 
                         <div class="left  submit-btn ">
-                            <button type="submit" class="btn btn-primary"> Annuler </button>
+                            <button type="btn" (click)="goback()"  class="btn btn-primary"> Annuler </button>
                           </div>
   
                           <div class="center  submit-btn ">
-                            <button type="submit" class="btn btn-primary"> Supprimer  le menu </button>
+                            <button type="btn" class="btn btn-primary"> Supprimer  le menu </button>
                           </div>
-                   </div>
+                         </div>
                       </form>
                     </div>
                   </div>

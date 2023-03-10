@@ -57,13 +57,20 @@
                       </div>
                     </div>
                        
-                    <div *ngIf=" !f['password'].errors && login &&  !isAuthenticated" class="text-center">
+                    <div *ngIf="login && !signinform.invalid &&  !isLoading &&  !isAuthenticated" class="text-center">
                            <p style="color: rgb(233, 8, 8);">  Email ou Mot de passe Incorrecte   </p>
                     </div>
                  
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <button class="btn btn-login" type="submit">Log
-                        in</button>
+
+                      <div *ngIf="!isLoading">
+                        <button  type="submit" class="btn">Se connecter</button>
+                      </div>
+                      <div *ngIf="isLoading" class="loading-icon">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2.5em;  padding-top:10px ;"></i>
+                      </div>
+                      
+                      
                       <p class="text-muted" href="#!">Forgot password?</p>
                     </div>
   

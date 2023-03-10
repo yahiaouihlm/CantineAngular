@@ -8,8 +8,10 @@ import {Router } from '@angular/router';
   ]
 })
 export class HomeComponent {
+ 
+ 
 
-    constructor ( private route :  Router){}
+ constructor ( private route :  Router){}
 
 
 

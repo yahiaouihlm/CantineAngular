@@ -5,7 +5,7 @@
     height: 300px;
     "></div>
       <h1 class="center">  Nos  Plats </h1>
-      <div *ngIf="role=='admin'" class="btn-add center ">
+      <div *ngIf="user.role=='admin'" class="btn-add center ">
             <button  (click)="addMeal()"  class="btn"> j'ajoute un plat </button>
       </div>
 
@@ -26,8 +26,8 @@
                               </div>
                         </div>
                              <div class="meal-handler center" style="margin-bottom:5% ;">
-                                   <button *ngIf="role == 'admin'" class=" btn"  (click)="editmeal( meal.id )"> Modifier Le Plat </button>
-                                   <button *ngIf="role != 'admin'" class=" btn"> Ajouter Au Panier </button>
+                                   <button *ngIf="(user.role == 'admin'  &&   user.token != undefined )" class=" btn"  (click)="editmeal( meal.id )"> Modifier Le Plat </button>
+                                   <button *ngIf=" user.role!= 'admin' " class=" btn"  (click)="addToBascket ( meal )"> Ajouter Au Panier </button>
                               </div>
                       </div>
                    </div>

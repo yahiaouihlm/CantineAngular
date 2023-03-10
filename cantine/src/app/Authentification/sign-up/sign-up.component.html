@@ -78,11 +78,11 @@
                         <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
                           <div *ngIf="f['email'].errors['required']">Email est requis</div>
                           <div *ngIf="f['email'].errors['email']">Email est requis</div>
-                          <div *ngIf="f['email'].errors['pattern']">Email doit terminer ...@social.aston-ecole.com </div>
+                          <div *ngIf="f['email'].errors['pattern']">Email doit terminer xyz@social.aston-ecole.com </div>
                         </div>
                         <div *ngIf="submitted">
-                          <div *ngIf="existingUserEmail">Email Existe daja </div>
-                        </div>
+                          <div *ngIf="existingUserEmail!=undefined && !isLoading"> Email Existe daja </div>
+                        </div> 
                       </div>
 
        
@@ -154,9 +154,27 @@
                            Veuillez Acceptez Les conditions d'utilisation 
                         </div>
                       </div> -->
+
+                      <div class="form-group">
+                        <label for="image"> Image de profile </label>
+                        <input
+                           type="file"            
+                          class="form-control"
+                          accept="image/png, image/jpeg"
+                          (change)="onChange ($event)" 
+                          /> 
+                        
+     
+                      </div>
                   
                       <div class="center  submit-btn ">
-                        <button type="submit" class="btn btn-primary">S'inscrire </button>
+                        <div *ngIf="!isLoading">
+                          <button  type="submit" class="btn">S 'inscrire </button>
+                        </div>
+                        <div *ngIf="isLoading" class="loading-icon">
+                          <i class="fas fa-spinner fa-spin" style="font-size: 2.5em;  padding-top:10px ;"></i>
+                        </div>
+                        
                       </div>
                     </form>
                   </div>
@@ -196,5 +214,4 @@
     </div>
   </div>
 </main>  
-
 <app-main-footer></app-main-footer>

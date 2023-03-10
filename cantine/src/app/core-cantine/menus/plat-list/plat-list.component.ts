@@ -31,7 +31,7 @@ constructor  (private cantineHandlerService  : CantineHandlerService, private di
     )
         .subscribe({
              next  : next => {
-                    if  (next.message  == "LIST" && next.httpStatus == "OK" ) 
+                    if  (next.message  == "SENDED" && next.httpStatus == "OK" ) 
                             this.meals =  next.data ;              
                      else{
                          console.log("erreur");

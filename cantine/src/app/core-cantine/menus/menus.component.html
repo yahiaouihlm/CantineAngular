@@ -4,18 +4,28 @@ background-image: url('../../../assets/mainimage4.jpg');
  height: 300px;
  "></div>
    <h1 class="center">  Nos   Menu </h1>
-   <div  class="btn-add center ">
-         <button    class="btn" (click)="goToNewMenu ()"> j'ajoute un Un menu </button>
+   
+   <div *ngIf="isLoading == true " class="center">
+         <i class="fas fa-spinner fa-spin" style="font-size: 5rem;"></i>
+   
    </div>
 
+
+ <div *ngIf="isLoading==false" class="menus">     <!-- affichage  quand le chargement des menus  est  terminer -->
    
+   
+      <div  class="btn-add center ">
+      <button    class="btn" (click)="goToNewMenu ()"> j'ajoute un Un menu </button>
+   </div>
+
+
    <div class="container">
-      <div class="row">
+         <div class="row">
              
              <div *ngFor=" let menu of meuns " class="col m4 s6">
                   <div class="card horizontal ">
                     <div class=" center ">
-                         <img  class="card-image"  src="{{menu.image}}" alt="">  
+                        <img  class="card-image"  src="{{menu.image}}" alt="">  
                         </div>
                     <div class="card-stacked">
                         <div class="card-content">
@@ -25,12 +35,14 @@ background-image: url('../../../assets/mainimage4.jpg');
                         </div>
                   </div>
                        <div class="meal-handler center" style="margin-bottom:5% ;">
-                             <button *ngIf="role == 'admin'" class=" btn"  (click)="editmenu(menu.idmenu)"> Modifier Le Menu </button>
-                             <button *ngIf="role != 'admin'" class=" btn"> Ajouter Au Panier </button>
+                             <button *ngIf="(user.role == 'admin'  &&   user.token != undefined ) 'admin'" class=" btn"  (click)="editmenu(menu.idmenu)"> Modifier Le Menu </button>
+                             <button *ngIf="user.role  != 'admin'" class=" btn"> Ajouter Au Panier </button>
                         </div>
                 </div>
              </div>
       </div>
+  </div>
+
 </div>
 
 <app-main-footer></app-main-footer>

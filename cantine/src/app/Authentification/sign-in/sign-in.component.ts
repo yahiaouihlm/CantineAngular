@@ -19,10 +19,11 @@ export class SignInComponent implements OnInit{
     password: new FormControl(''),
   });  
    login  = false;
-   isAuthenticated =  false ; 
+   isAuthenticated :  boolean | undefined ; 
    token  :  string = '' ; 
    username  : string  =  '';  
    rol :  string = ''; 
+   isLoading =  false ;  
   constructor (private route  : Router ,  private formBuilder: FormBuilder , private signService: SignService ){}
   
   ngOnInit(): void {
@@ -43,12 +44,11 @@ export class SignInComponent implements OnInit{
 
   onSubmit () {
     this.login =  true ; 
-      
     if (this.signinform.invalid) {      
-      this.login =  false  ;  
       return;
     }
 
+    this.isLoading =  true 
      const User = {
        email : this.signinform.controls['email'].value ,
        password : this.signinform.controls['password'].value 
@@ -60,11 +60,12 @@ export class SignInComponent implements OnInit{
           if (next.Authorization!= undefined && next.Authorization!==''
               && next.message==='you are authenticated' && next.status ==='OK' && next.user!=undefined &&  next.role !=undefined
              ){
+              this.isAuthenticated =  true ; 
+              this.isLoading =  false ;
               console.log("token");
               console.log(next);
               this.token =  next.Authorization; 
               this.username = next.user
-              this.isAuthenticated =  true ; 
               this.rol = next.role ;
               localStorage.setItem('Authorization' , this.token);
               localStorage.setItem('user' ,  this. getUserNam(this.username))
@@ -73,19 +74,24 @@ export class SignInComponent implements OnInit{
           }
           else if  (next.Authorization== undefined && next.message == 'Authentication error'  &&
                next.status === 'FORBIDDEN'
+                
           ){
             this.isAuthenticated =    false ;  
+            this.isLoading =  false ;
             console.log("VOUS  ETES PAS AUTHENTIFIER ");
             
           }
         }, 
         
         error : error =>   {
-         
+          this.isLoading =  false ;
+          alert('Une  ERREUR  produite lors du  chargement des Données  Réessayez  plus tart  si le problème persiste  veuillez contactez  L administration  de vorte  Ecole ')
+           this.route.navigate(['cantine']);
+           localStorage.clear(); 
           //  Ya une erreur il faut    faite la gestion des    erreurs 
           console.error(error)
         }  
-    })
+    }) 
   }
 
   
@@ -95,5 +101,6 @@ export class SignInComponent implements OnInit{
 
   getUserNam(username : string ) : string {
     return username.replace("@social.aston-ecole.com" ,'');
+
   }
 }

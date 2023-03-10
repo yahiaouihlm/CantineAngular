@@ -11,20 +11,20 @@ import { CantineHandlerService } from 'src/app/services/cantine-handler.service'
   ]
 })
 export class MenusComponent  implements OnInit{
-    
+  isLoading =  true  ;  
   meuns: Menu[] = [];
-  role :  string ='';
+  user = {
+       role  :   localStorage.getItem('rol'),
+       token :  localStorage.getItem('Authorization')
+  }
   constructor (private route :  Router,  private cantineHandlerService :  CantineHandlerService) {}
  
   ngOnInit(): void {
 
-    let local =  localStorage.getItem("rol")
-    if (local !=undefined)
-      this.role =  local;    
+   
      this.getmenus(); 
-     console.log("je suis  la ");
      
-     console.log(this.meuns);
+    
      
 
   }
@@ -33,27 +33,31 @@ export class MenusComponent  implements OnInit{
     
 
   getmenus()  {
-
+      
     this.cantineHandlerService.getmenus ().pipe(
       catchError((err) => this.handleError(err, null))
     ).subscribe({
        next : next => {
-         if  (next.httpStatus == "OK" && next.message == "SENDED" &&  next.data != undefined ){
-                console.log(" iNFORMATION  DE MEAL  SONT  BIEN  LUES  ");
-                console.log(next.data);
+       if  (next.httpStatus == "OK" && next.message == "SENDED" &&  next.data != undefined ){
                 this.meuns =  next.data ; 
-                console.log(next.data.image);
+                this.isLoading = false ; 
+                console.log("je suis  la moi ");
                 
          }    
 
          else {
-            console.log("ya   une  erreur de réponse de serveur ");
-            
+           alert("Nous  avons  rencontrer  un probléme de chargment de page  Sil vous plait ressayer ");
+           localStorage.clear ();
+            this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });   
          }
-       },
+        },
 
-       error :  error => {
-                 console.log("erreur du  serveur ");
+       error :  error => {  
+        alert("Nous  avons  rencontrer  un probléme de chargment de page  Sil vous plait ressayer  si  le  probléme persiste  veuillez contacter  l'administeration  de votre ecole "); 
+        console.log("hello ");
+        
+        localStorage.clear ();
+        this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });   
                  
        }
     }
@@ -63,7 +67,10 @@ export class MenusComponent  implements OnInit{
 
      
   private handleError(error: Error, errorValue: any) {
-    console.error(error);
+     if (error) {
+       throw "ERROR"
+        
+   }
     return of(errorValue);
   }
  

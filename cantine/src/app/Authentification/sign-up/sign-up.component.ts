@@ -3,7 +3,7 @@ import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators 
 import Validation from './validation';
 import { SignService } from 'src/app/services/sign.service';
 import { Router } from '@angular/router';
-
+import { format, parseISO } from 'date-fns';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -12,82 +12,121 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent  implements OnInit { 
      signupform: FormGroup = new FormGroup({
-          fullname: new FormControl(''),
-          username: new FormControl(''),
-          birthday : new FormControl(''),
-          email: new FormControl(''),
-          password: new FormControl(''),
-          confirmPassword: new FormControl(''),
-          acceptTerms: new FormControl(false),
-        });
+          fullname: new FormControl('' ,[Validators.required,Validators.maxLength(16)]),
+          username: new FormControl('',   [Validators.required,Validators.minLength(3),Validators.maxLength(20)]),
+          birthday : new FormControl('', [Validators.required] ),
+          email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@social.aston-ecole.com')]),
+          password: new FormControl('',[Validators.required,Validators.minLength(6),Validators.maxLength(40)]),
+          confirmPassword: new FormControl('', [ Validators.required])
+         // acceptTerms: new FormControl(true),
+        },
+        {
+          validators: [Validation.match('password', 'confirmPassword')]
+        }
+        
+        );
         submitted = false;
         show =  true ;      // show if authentificated has been  done  
         authError =  false; // if  there  is any  authenticated problem show  the  html    div 
-        existingUserEmail =  false;   //  if  the email alredy  exist  in  database 
-       // serverAnser : Answer | undefined ;   
+        existingUserEmail: boolean | undefined;   //  if  the email alredy  exist  in  database 
+        isLoading =   false    ;  
+        image! :  File ;
 
 
  constructor  (private formBuilder: FormBuilder, private signService : SignService,  private route :  Router){
  }
   ngOnInit(): void {
-          this.signupform =  this.formBuilder.group({
-          fullname: ['', 
-                    [
-                      Validators.required,
-                      Validators.maxLength(16)
-              ]
-             ],
-          username: [
-               '',
-               [
-                 Validators.required,
-                 Validators.minLength(3),
-                 Validators.maxLength(20)
-               ]
-             ],
-          birthday : ['' , Validators.required], 
-          email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@social.aston-ecole.com')]],
-          password: [
-               '',
-               [
-                 Validators.required,
-                 Validators.minLength(6),
-                 Validators.maxLength(40)
-               ]
-             ],
-         confirmPassword: ['', Validators.required],
-         acceptTerms: [false, Validators.requiredTrue] 
-        },
-        {
-          validators: [Validation.match('password', 'confirmPassword')]
-        }
-       );
+        
      }
-     get f(): { [key: string]: AbstractControl } {
-    return this.signupform.controls;
-      }
+  
    onSubmit(): void {
-    
-          this.submitted = true;
-          this.checkExisingEmail(); 
-    
-    
-    
-          if (this.signupform.invalid) {
-    
-               return  ;         
-          }
+     this.submitted = true;
+     
+     if (this.signupform.invalid) {      
+       return  ;         
+      } 
+     this.isLoading =  true  ; 
+     this.checkExisingEmailAndSignUP(); 
+   
+    }
+
+
+  checkExisingEmailAndSignUP ()  {
+      const Useremail  = {email : this.signupform.controls['email'].value}
+      const exitUser  =  {message : 'existingUser' ,  httpStatus:'OK' ,  data:  'Exist'}
+      const notExisting  =  {message : 'notexistingUser' ,  httpStatus:'OK' ,  data:  'Not Exist'} 
+ 
+  this.signService.existingEmail(Useremail).subscribe({
+        next : next => {
+           if (next.data  == exitUser.data && next.httpStatus == exitUser.httpStatus  && next.message == exitUser.message){
+                       this.existingUserEmail =  true ;     
+                       this.isLoading =  false ;  
+                       alert('Le mail  existe ') ;  
+                       console.log("le email  exist ");
+                       
+                  }
+              
+            else if (next.data  == notExisting.data && next.httpStatus == notExisting.httpStatus  && next.message == notExisting.message){
+                          this.existingUserEmail =  false ; 
+                           this.inscription(); 
+                  }
+                  else {
+                    alert(" Une erreur  c'est produite pendant la trasmition des donné ");
+                    this.route.navigate(['cantine'])
+                      
+                  }
+              
+             }, 
+             error :  error => {
+              alert(" Une erreur  c'est produite pendant la trasmition des donné ")
+              this.route.navigate(['cantine']) ; 
+              } 
+          })
+         
+
+      
+ 
+       }
+  
+
+ private inscription (): void {
 
    
-          
-        //  console.log('--- call  to service ------');
-        //  this.signService.signUp(UserInfo).subscribe({
-        //         next:  data  => console.log("data =>  " +  data), 
-        //        error : error =>  this.authError =  true  
-             
-        //  }); 
-         
-        }
+    const formData: FormData = new FormData(); 
+    if  (this.image != null ||  this.image != undefined ) // envoyer  une image  uniquement si  y'a eu  une image  ! 
+          formData.append('image', this.image);  
+      const dateAsString = this.signupform.controls['birthday'].value;
+     const date = parseISO(dateAsString);
+      const formattedDate = format(date, 'yyyy-MM-dd');
+
+      formData.append('username',this.signupform.controls['username'].value )
+      formData.append('fullname',  this.signupform.controls['fullname'].value);
+      formData.append('password', this.signupform.controls['password'].value);
+      formData.append('email',this.signupform.controls['email'].value);
+       formData.append('dateofbirth', formattedDate); 
+   
+       
+      let  saved  =  {  message : 'saved  successfully',  httpStatus  :'OK', data :  null  }
+     
+      this.signService.signUp(formData).subscribe({
+       
+           next : next =>   {
+                 console.log("inscription  valider ");
+                 
+                console.log(next);
+                this.isLoading =  false;  
+            } , 
+           error : error => {
+            console.log("inscription  valider mais  ya  une erreur  ");
+            
+            console.log(error);
+            this.isLoading =   false ; 
+          }
+           
+      })
+
+      
+     }
 
 
        
@@ -105,87 +144,33 @@ export class SignUpComponent  implements OnInit {
         getauthError () : boolean{
              return  this.authError;         
          }
-       //yahiaoui@social.aston-ecole.com
-       checkExisingEmail ()  :  boolean  {
-           const Useremail  = {email : this.signupform.controls['email'].value}
-           const exitUser  =  {message : 'existingUser' ,  httpStatus:'OK' ,  data:  'Exist'}
-           const notExisting  =  {message : 'notexistingUser' ,  httpStatus:'OK' ,  data:  'Not Exist'} 
-   
-           this.signService.existingEmail(Useremail).subscribe({
-               
-               next : next => {
-           
-                
-                    if (next.data  == exitUser.data && next.httpStatus == exitUser.httpStatus  && next.message == exitUser.message){
-                         this.existingUserEmail =  true ;  
-                         
-                   
-                    }
-                
-                            
-                    else if (next.data  == notExisting.data && next.httpStatus == notExisting.httpStatus  && next.message == notExisting.message){
-                            this.existingUserEmail =  false ; 
-                            this.inscription () ; 
-
-                    }
-                    else {
-                        console.log('ya une rreur ici  ');
-                        
-                    }
-                
-               }, 
-               error :  error => {
-                   console.log(" there  is  a error ");
-                } 
-            })
-           
+      
 
         
-          
-         return  this.existingUserEmail ;          
-      }
 
 
 
-
-
-
-     getExistingEmail () : boolean {
-      return  this.existingUserEmail ; 
-     }
-
-      
-     private inscription (): void {
-
-      const  UserInfo: Object  = {
-        username : this.signupform.controls['username'].value,
-        fullname : this.signupform.controls['fullname'].value,
-        password : this.signupform.controls['password'].value,
-        email : this.signupform.controls['email'].value,
-        birthday :  this.signupform.controls['birthday'].value
-      }
-       
-      let  saved  =  {  message : 'saved  successfully',  httpStatus  :'OK', data :  null  }
-     
-      this.signService.signUp(UserInfo).subscribe({
-       
-           next : next =>   {
-                
-            } , 
-           error : error => {console.log(error);}
-           
-      })
-
-      
-     }
 
 
      
 
 
+     get f(): { [key: string]: AbstractControl } {
+      return this.signupform.controls;
+        }
 
+
+  
+        onChange = ($event : Event) =>{
+          const target  = $event.target as HTMLInputElement ; 
+          const file  : File =  (target.files as FileList)[0]
+            this.image =  file  ;  
+        } 
+             
 
 
 
     }
+
+
 

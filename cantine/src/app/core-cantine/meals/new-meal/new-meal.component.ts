@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
 import { Observable, Subscriber } from 'rxjs';
+import { ValidatorComponent } from 'src/app/globalCompenets/validator/validator.component';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 @Component({
   selector: 'app-new-meal',
@@ -25,7 +27,7 @@ export class NewMealComponent implements OnInit{
   validatQuantity =  true ; 
   image ! :  File; 
 
-  constructor  (  private formBuilder: FormBuilder, private cantineHandlerService: CantineHandlerService,  private  route :Router  ) {}
+  constructor  (  private formBuilder: FormBuilder, private cantineHandlerService: CantineHandlerService, private route : Router ,private matDialog :  MatDialog) {}
   ngOnInit(): void {
     this.newmeal =  this.formBuilder.group({
       mealname : ['',[Validators.required ,  Validators.maxLength(16) ,Validators.minLength(3)] ],
@@ -45,9 +47,19 @@ export class NewMealComponent implements OnInit{
      if  (this.newmeal.invalid)
           return ;  
   
-    confirm("veuillez confirmer  L'enregistrement du plat "); 
+    const result =  this.matDialog.open(ValidatorComponent, {
+            data: { message: "Voulez Vous Vraiment enregistré  ce plat " }
+      }) ;  
     
-    this.sendmeal(); 
+      result.afterClosed(). subscribe((result) =>{
+        if  (result === 'oui' ){
+          this.sendmeal(); 
+        }
+        else{
+           return  ; 
+        }
+      })
+    
      
 
   }
@@ -77,15 +89,6 @@ export class NewMealComponent implements OnInit{
 
       
     sendmeal () :  void {
-      const  meal :  object = {
-        categorie : this.newmeal.controls['mealcategory'].value,
-        description :  this.newmeal.controls['mealdescription'].value,
-        label : this.newmeal.controls['mealname'].value,
-        prixht :  this.newmeal.controls['mealprice'].value,
-        quantite :  this.newmeal.controls['mealquantity'].value,
-        image :  this.image
-       } 
-
        
        const formData: FormData = new FormData(); 
        formData.append('image', this.image);
@@ -94,12 +97,21 @@ export class NewMealComponent implements OnInit{
        formData.append('label', this.newmeal.controls['mealname'].value);
        formData.append('prixht',  this.newmeal.controls['mealprice'].value);
        formData.append('quantite' ,this.newmeal.controls['mealquantity'].value );
+
+       
        this.cantineHandlerService.newMeal(formData).subscribe({
            next : next =>{
-               // Attendre La réponse du  serveur   et traiter  les erreurs
-               window.location.href = 'http://localhost:4200/cantine/meals'
-               
-               alert('Votre Plat à  éte parfaitement enregistrer '); 
+                if  (next.message == "SUCCESS" && next.httpStatus=="OK" && next.data !=undefined){
+                     this.matDialog.open(ValidatorComponent, {
+                        data: { message: "  Votre Plat à était Enregistré avec succée " }
+                     }) ;  
+
+                     this.route.navigate(['cantine/meals'], { queryParams: { reload: 'true' } });   
+                }
+                else{
+                      console.log("ya  une erreur  ");
+                      
+                }
                  
               }, 
 
@@ -126,34 +138,3 @@ export class NewMealComponent implements OnInit{
 
 
 
-// onChange = async ($event : Event) =>{
-//   const target  = $event.target as HTMLInputElement ; 
-//   const file  : File =  (target.files as FileList)[0]
-//   console.log(this.image);
-  
-// } 
-
-// convertToBase64(file: File) {
-//   const observable =  new Observable((subscriber :  Subscriber<any> ) =>{
-//   this.readFile(file ,  subscriber)
-//   });
-
-//   observable.subscribe ((res) =>{
-//       this.image =  res ;
-      
-//   })
-// }
-
-
-// readFile(file: File, subscriber: Subscriber<any>) {
-// const filereader  =  new FileReader(); 
-// filereader.readAsDataURL(file);
-// filereader.onload = ()=>{
-//   subscriber.next (filereader.result)
-//   subscriber.complete();
-// }
-// filereader.onerror = () =>{
-// subscriber.error();
-// subscriber.complete()
-// }
-// }

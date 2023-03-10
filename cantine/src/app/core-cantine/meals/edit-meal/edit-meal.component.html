@@ -1,5 +1,4 @@
 <app-main-nav></app-main-nav>
-
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-xl-20">
@@ -25,7 +24,7 @@
                             formControlName="mealname"
                             class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['mealname'].errors }"
-                            value="{{meal.label}}"
+                            [(ngModel)]="meal.label"
                           />
                           <div *ngIf="submitted && f['mealname'].errors" class="invalid-feedback">
                             <div *ngIf="f['mealname'].errors['required']"> Nom  du plat  est requis </div>
@@ -45,7 +44,7 @@
                               formControlName="mealdescription"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealdescription'].errors }"
-                              value="{{meal.description}}"
+                              [(ngModel)]="meal.description"
                             />
                             <div *ngIf="submitted && f['mealdescription'].errors" class="invalid-feedback">
                               <div *ngIf="f['mealdescription'].errors['required']"> Description  du plat  est requis </div>
@@ -67,7 +66,7 @@
                               formControlName="mealprice"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealprice'].errors }"
-                              value="{{meal.prixht}}"
+                              [(ngModel)]="meal.prixht"
                               /> 
                             
                             <div *ngIf="submitted && f['mealprice'].errors" class="invalid-feedback">
@@ -82,7 +81,7 @@
                               formControlName="mealquantity"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealquantity'].errors }"
-                              value="{{meal.quantite}}"
+                              [(ngModel)]="meal.quantite"
                               /> 
                               <div *ngIf="submitted && f['mealquantity'].errors" class="invalid-feedback">
                                 <div *ngIf="f['mealquantity'].errors['required']"> Quantité  est requis </div>
@@ -101,6 +100,7 @@
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealcategory'].errors }"
                               name="Catégorie"
+                              [(ngModel)]="meal.categorie"
                               > 
                               <option value="">{{meal.categorie}}</option>
                               <option value="Hamburgers">Hamburgers </option>
@@ -145,19 +145,19 @@
   
                     
                         <div class="center  submit-btn " style="padding-top: 30px;">
-                          <button   (click)=" removeMeal()"   class="btn btn-primary"> Supprimer  </button>
+                          <button  type="button" (click)=" removeMeal()"   class="btn btn-primary"> Supprimer  </button>
                           <button type="submit" class="btn btn-primary"> Enregistrer  </button>
-                          <button type="submit" class="btn btn-primary"> Annuler  </button>
+                          <button  type="button"   (click)="goback()" class="btn btn-primary"> Annuler  </button>
                         </div>
                       </form>
                     </div>
 
-    </div>
-    </div>
-    </div>
+                 </div>
+           </div>
+         </div>
     </div>
     </div>
    </div>
-   </div>
+</div>
 
 

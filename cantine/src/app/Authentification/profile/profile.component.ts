@@ -97,9 +97,7 @@ export class ProfileComponent   implements OnInit {
   
 
   deconnexion () : void  {
-     localStorage.removeItem('Authorization'); 
-     localStorage.removeItem('user'); 
-     localStorage.removeItem('role'); 
+     localStorage.clear();
      this.route.navigate(['cantine']);
   }
   get f(): { [key: string]: AbstractControl } {

@@ -18,8 +18,11 @@ export class CantineHandlerService {
   readonly API_URL = "http://localhost:8080/";
   readonly ENDPOINTMEALS = "cantine/meals";
   readonly ENDPOINTADDMEAL = "cantine/meals/add";
+  readonly ENDPOINTUPDATEMEAL = "cantine/meals/update";
   readonly ENDPOINTGETMEAL = "cantine/meals/getOne"
   readonly ENDPOINTREMOVEMEA = "cantine/meals/removeOne"; 
+
+
   readonly ENDPOINTADDMENU ="cantine/menus/addMenu"; 
   readonly ENDPOINTGETMENUS = "cantine/menus/getMenus"
   readonly ENDPOINTGETMENU = "cantine/menus/getOne"
@@ -142,35 +145,32 @@ getmenus ()  {
       token =  storage;  
     }
     const headers = new HttpHeaders().set('Authorization',token );
-    const req = new HttpRequest('POST',  (this.API_URL + this.ENDPOINTADDMEAL) ,meal ,   {
-      reportProgress: true,
-      responseType: 'json',
-      headers : headers,
-    });
-    return  this.httpClient.request(req); 
-
+  
+    return this.httpClient.post < MealAnser > ((this.API_URL + this.ENDPOINTADDMEAL),  meal , {headers :  headers}) ;
 
 
   }
+  
 
+ updateMeal (meal : FormData , idmeal :  string ) {
+  let  token = '' ;
+  let   storage = localStorage.getItem('Authorization')
+  if (storage === null)
+      storage =''
+  else {
+    token =  storage;  
+  }
+  const url  =  this.API_URL + this.ENDPOINTUPDATEMEAL + '/' +  idmeal
+  const headers = new HttpHeaders().set('Authorization',token );
+  /*const req = new HttpRequest('POST', url  ,meal ,   {
+    reportProgress: true,
+    responseType: 'json',
+    headers : headers,
+  });
+  return  this.httpClient.  request(req);  */ 
+  return this.httpClient.post < MealAnser > (url,  meal , {headers :  headers}) ;
 
+ }
  
- 
-  /*sendImage (  data  :   File    ){
 
-    const formData: FormData = new FormData(); 
-    formData.append('file', data);
-
-
-    const url =  "http://localhost:8080/cantine/upload"
-     //  return this.httpClient.post <Answer> (url , data,   formData    );         
-
-
-     const req = new HttpRequest('POST',  url, formData ,   {
-      reportProgress: true,
-      responseType: 'json'
-    });
-
-    return  this.httpClient.request(req); 
-  }*/
 }

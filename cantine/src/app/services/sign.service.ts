@@ -18,7 +18,7 @@ export class SignService {
 
 
 
-  signUp(userinformation : Object) {
+  signUp(userinformation : FormData) {
     console.log((this.API_URL + this.ENDPOINTSIGNUP));
     return this.httpClient.post( (this.API_URL + this.ENDPOINTSIGNUP), userinformation )
   }

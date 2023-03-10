@@ -10,6 +10,12 @@ import { Router } from '@angular/router';
 export class MainNavComponent  implements OnInit {
   Username :  string  = '';
   nameorder : string ='Mon Panier';
+
+  user =  {
+    token :  localStorage.getItem('Authorization'),
+    role  :  localStorage.getItem('rol'),
+    username :  localStorage.getItem('user')
+  }
   constructor (private route  : Router){}
  
 
@@ -26,17 +32,13 @@ export class MainNavComponent  implements OnInit {
 
 
   ngOnInit(): void {
-     var  user =  localStorage.getItem('user'); 
-     var  role =  localStorage.getItem('rol'); 
-     if (user == undefined || user === ''){
-      this.Username =  "Connexion"
-     }else{
-      this.Username =  user ; 
+       const token =  this.user.token;  
+       const username = this.user.username; 
+     if (token == null || token== undefined || username == null || username== undefined  )
+              this.Username =  "Connexion"
+     else {
+        this.Username =  username;  
      }
-     if  (role=='admin'){
-       this.nameorder="Commandes"
-     }
-     console.log(role);
      
    
   }
