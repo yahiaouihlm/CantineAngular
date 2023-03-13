@@ -26,11 +26,27 @@ export class CantineHandlerService {
   readonly ENDPOINTADDMENU ="cantine/menus/addMenu"; 
   readonly ENDPOINTGETMENUS = "cantine/menus/getMenus"
   readonly ENDPOINTGETMENU = "cantine/menus/getOne"
+  readonly ENDPOINTUPDATMENU = "cantine/menus/update";
+
 
   constructor(private httpClient: HttpClient) {}
 
 /*************************************   Menu   *********************************************/
 
+
+
+updateMenu (menu:  Menu,  idmenu : string ){
+  let  token = '' ;
+  let   storage = localStorage.getItem('Authorization')
+  if (storage === null)
+      storage =''
+  else {
+    token =  storage;  
+  }
+  const headers = new HttpHeaders().set('Authorization',token );
+  const   url  =  this.API_URL+this.ENDPOINTUPDATMENU + '/' + idmenu; 
+  return  this.httpClient.post<MenuAnser> (url , {headers}); 
+}
 
 getmenuByid (idmenu :  string) {
   let  token = '' ;

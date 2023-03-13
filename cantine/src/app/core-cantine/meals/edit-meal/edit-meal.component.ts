@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, of } from 'rxjs';
 import { ValidatorComponent } from 'src/app/globalCompenets/validator/validator.component';
-import { Answer } from 'src/app/Models/Answer';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 
 @Component({
