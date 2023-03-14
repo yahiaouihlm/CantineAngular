@@ -1,3 +1,5 @@
+import { Image } from "./image";
+
 export interface UserAnswer {
     message : string ; 
     httpStatus  :   string ; 
@@ -13,6 +15,7 @@ export interface User {
     email  :  string ,
     phone : number
     credit : number ,  
-    birthday: Date
-    creation : Date
+    birthday: Date,
+    creation : Date,
+    image : string 
 }

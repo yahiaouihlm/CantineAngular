@@ -16,6 +16,7 @@ import { PlatListComponent } from '../plat-list/plat-list.component';
 export class EditMenuComponent  implements OnInit{
    isLoading =  true ;  
    submitted =  false ;
+   mealsIDs: number[] = [];
    menuToedit =  { label : "" ,  description: "" , prixht:0 ,  quantite:0 , status:0 ,  image:"" , plats :  [ ] as Meal [] } ; 
    idmenuToUpdate!: string; 
    image!: File;
@@ -55,15 +56,17 @@ export class EditMenuComponent  implements OnInit{
       }) ;  
     result.afterClosed(). subscribe((result :  string ) =>{       
        if  (result === 'oui' ){
-            //console.log("vous avez click sur  oui ");
+              this.updateMeal  () ;
             return ; 
         }
         else {          
           return ; 
         }
       })      
+
       
-      this.updateMeal  () ;
+      
+     // 
   }
 
 
@@ -93,10 +96,17 @@ updateMeal  () {
   formData.append('description', this.newmenu.controls['menudescription'].value)      
   formData.append('prixht', this.newmenu.controls['menuprice'].value)      
   formData.append('quantite', this.newmenu.controls['menuquantity'].value)  
-  this.choosenmealformenu.forEach( meal => {
+  console.log(this.choosenmealformenu);
+  console.log(this.menuToedit);
+
+   
+  
+  
+  
+  /*this.choosenmealformenu.forEach( meal => {
          console.log(meal.id);
          
-  })
+  })*/
  // formData.append('mealsIDS', this.)      
 
  // this.cantineHandlrService.updateMenu()
@@ -115,8 +125,6 @@ getMenu () {
               this.menuToedit.quantite = next.data.quantite ; 
               this.menuToedit.plats =  next.data.plats; 
              this.matchFormsValue() ;
-          
-             
              this.isLoading = false ; 
              }
              else {
@@ -166,6 +174,9 @@ onOpenDialogClick() {
     }   
      //  this.clicked =  true ;  
   })
+
+
+
 }
 
 

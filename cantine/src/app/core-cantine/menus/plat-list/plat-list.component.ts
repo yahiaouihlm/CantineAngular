@@ -16,7 +16,7 @@ export class PlatListComponent implements  OnInit{
   meals: Meal[] | undefined;  
   clicked =  false  ;   
   selectedmeals : Meal []  =  [];  
-
+  isdisable  =  true ;  
 
 constructor  (private cantineHandlerService  : CantineHandlerService, private dialogRef: MatDialogRef<PlatListComponent>   ) {}
   ngOnInit(): void {
@@ -45,6 +45,11 @@ constructor  (private cantineHandlerService  : CantineHandlerService, private di
 
     addToList(pmeal :  Meal )   {
       this.selectedmeals.push(pmeal); 
+      if  (this.selectedmeals.length >= 2 )
+          this.isdisable = false ; 
+          else{
+            this.isdisable =  true ;  
+          }
         
     }
     
@@ -55,6 +60,7 @@ constructor  (private cantineHandlerService  : CantineHandlerService, private di
 
     restselectedmeals()  {
       this.selectedmeals.splice(0 ,  this.selectedmeals.length);
+      this.isdisable =  true  ; 
     }
 
     closeDialog() {
@@ -68,4 +74,5 @@ constructor  (private cantineHandlerService  : CantineHandlerService, private di
     } 
 
 
+   
 }

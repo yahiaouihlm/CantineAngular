@@ -22,6 +22,7 @@ import { MatDialogModule}  from '@angular/material/dialog';
 import { EditMenuComponent } from './core-cantine/menus/edit-menu/edit-menu.component';
 import { ValidatorComponent } from './globalCompenets/validator/validator.component';
 import { ExpiredSessionComponent } from './globalCompenets/expired-session/expired-session.component';
+import { CommonModule } from '@angular/common';
  
 
 @NgModule({
@@ -44,13 +45,14 @@ import { ExpiredSessionComponent } from './globalCompenets/expired-session/expir
     ExpiredSessionComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 
   providers: [],

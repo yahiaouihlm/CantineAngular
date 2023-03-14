@@ -38,11 +38,11 @@ export class MenusComponent  implements OnInit{
       catchError((err) => this.handleError(err, null))
     ).subscribe({
        next : next => {
+        console.log(next);
+        
        if  (next.httpStatus == "OK" && next.message == "SENDED" &&  next.data != undefined ){
                 this.meuns =  next.data ; 
-                this.isLoading = false ; 
-                console.log("je suis  la moi ");
-                
+                this.isLoading = false ;                 
          }    
 
          else {

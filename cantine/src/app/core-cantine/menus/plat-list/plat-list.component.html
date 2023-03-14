@@ -47,7 +47,8 @@ height: 300px;
         </div>
         
         <div class="center">
-            <button  class="btn" (click)="closeDialog()">Terminer </button>
+       
+             <button [disabled]="isdisable" class="btn"  [title]="isdisable ? 'Il faut choisir  au  moins 2 Plats ':  null  " > Valider  </button> 
         </div>
         
         

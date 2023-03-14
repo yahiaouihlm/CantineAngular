@@ -88,14 +88,16 @@ getmenus ()  {
     }
     const headers = new HttpHeaders().set('Authorization',token );
     //const params = new HttpParams().set('mealsIDS', listmeal);
-    const req = new HttpRequest('POST',  (this.API_URL + this.ENDPOINTADDMENU) ,menu ,   {
+   /* const req = new HttpRequest('POST',  (this.API_URL + this.ENDPOINTADDMENU) ,menu ,   {
       reportProgress: true,
       responseType: 'json',
       headers : headers,
    
-    });
+    });*/
    
-    return  this.httpClient.request(req); 
+    //return  this.httpClient.request(req); 
+
+    return this.httpClient.post<MenuAnser>( (this.API_URL +  this.ENDPOINTADDMENU ) , menu , {headers}); 
  }
 
 
