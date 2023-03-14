@@ -8,7 +8,8 @@ import { CantineHandlerService } from 'src/app/services/cantine-handler.service'
   selector: 'app-plat-list',
   templateUrl: './plat-list.component.html',
   styles: [
-  ],
+    
+    ],
 
   providers : [CantineHandlerService]
 })
@@ -73,6 +74,7 @@ constructor  (private cantineHandlerService  : CantineHandlerService, private di
       return of(errorValue);
     } 
 
-
-   
 }
+
+/*TODO*/ 
+//  La gestion  des erreurs  ;  

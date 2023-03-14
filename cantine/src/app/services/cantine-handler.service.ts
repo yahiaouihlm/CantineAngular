@@ -35,7 +35,7 @@ export class CantineHandlerService {
 
 
 
-updateMenu (menu:  Menu,  idmenu : string ){
+updateMenu (menu:  FormData,  idmenu : number ){
   let  token = '' ;
   let   storage = localStorage.getItem('Authorization')
   if (storage === null)
@@ -45,7 +45,7 @@ updateMenu (menu:  Menu,  idmenu : string ){
   }
   const headers = new HttpHeaders().set('Authorization',token );
   const   url  =  this.API_URL+this.ENDPOINTUPDATMENU + '/' + idmenu; 
-  return  this.httpClient.post<MenuAnser> (url , {headers}); 
+  return  this.httpClient.post<MenuAnser> (url ,menu ,{headers}); 
 }
 
 getmenuByid (idmenu :  string) {

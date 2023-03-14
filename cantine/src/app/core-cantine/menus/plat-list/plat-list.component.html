@@ -45,10 +45,12 @@ height: 300px;
                 </div>
             </div>
         </div>
-        
+            
         <div class="center">
        
-             <button [disabled]="isdisable" class="btn"  [title]="isdisable ? 'Il faut choisir  au  moins 2 Plats ':  null  " > Valider  </button> 
+             <button [disabled]="isdisable" class="btn"  [title]="isdisable ? 'Il faut choisir  au  moins 2 Plats ':  null  "
+             (click)="closeDialog()"> Valider  </button> 
+             <div class="center" *ngIf="isdisable" style="color:red; "> Vous deverriez  absolument Choisir au moins   deux Plats  pour un  menu  </div>
         </div>
         
         
