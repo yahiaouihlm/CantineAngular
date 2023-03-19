@@ -1,3 +1,4 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -99,8 +100,9 @@ export class NewMealComponent implements OnInit {
     formData.append('quantite', this.newmeal.controls['mealquantity'].value);
 
 
-    this.cantineHandlerService.newMeal(formData).subscribe({
+  this.cantineHandlerService.newMeal(formData).subscribe({
       next: next => {
+
         if (next.message == "SUCCESS" && next.httpStatus == "OK" && next.data != undefined) {
           this.matDialog.open(ValidatorComponent, {
             data: { message: "  Votre Plat à était Enregistré avec succée " }
@@ -109,15 +111,32 @@ export class NewMealComponent implements OnInit {
           this.route.navigate(['cantine/meals'], { queryParams: { reload: 'true' } });
         }
         else {
-          console.log("ya  une erreur  ");
+          alert("ya  une erreur Iconnue  Veuillez Réessez  Plustart  ");
+          localStorage.clear(); 
+          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
 
         }
 
       },
 
       error: error => {
-        console.log("erreur");
-        console.log(error);
+        if (error.status == HttpStatusCode.Forbidden && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN"){
+             localStorage.clear();
+             this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
+            return;
+        }
+          else  if  (error.httpStatus == HttpStatusCode.BadRequest){
+               alert ("Vous  avez Tentez de  soumettre des informations Invalide au  serveur "); 
+               return ; 
+           }
+           else if (error.httpStatus = HttpStatusCode.InternalServerError){
+            alert(" Une Erreur Serveur est produite,  il est probablement liée au  charegement de votre image   ");
+            return ;  
+          }
+           else{
+            alert( "ERROR  Inconnue Peut etre Une erreur Reseau  ! ");
+             return ;  
+          }
 
 
         //  Le Traitement Des Erreurs ;  

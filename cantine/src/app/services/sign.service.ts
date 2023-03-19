@@ -14,13 +14,17 @@ export class SignService {
   readonly ENDPOINTLOGIN  =  "login"
   readonly ENDPOINTEXISTINGEMAIL ="cantine/user/existemail"  
   readonly ENDPOINTMYPROFILE =  "cantine/user/myprofile"
+  readonly ENDPOINTACTIVATEACOUNT = "cantine/users/activatedAcount" ;
   constructor(private  httpClient : HttpClient) { }
 
-
+  activateAcount( email :  string ) {
+    let url =  (this.API_URL + this.ENDPOINTACTIVATEACOUNT) + "/" + email
+      return this.httpClient.post<Answer>(url,  email);  
+  }
 
   signUp(userinformation : FormData) {
     console.log((this.API_URL + this.ENDPOINTSIGNUP));
-    return this.httpClient.post( (this.API_URL + this.ENDPOINTSIGNUP), userinformation )
+    return this.httpClient.post <Answer>( (this.API_URL + this.ENDPOINTSIGNUP), userinformation )
   }
    
   login (userlogin :  Object) {

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PlatListComponent } from '../plat-list/plat-list.component';
 import { Meal } from 'src/app/Models/meal';
 import { ValidatorComponent } from 'src/app/globalCompenets/validator/validator.component';
+import { HttpStatusCode } from '@angular/common/http';
 @Component({
   selector: 'app-new-meal',
   templateUrl: './new-menu.component.html',
@@ -129,10 +130,23 @@ export class NewMenuComponent {
           this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
           return;
         }
+        else if (error.status == HttpStatusCode.BadRequest ){
+          alert(" Impossible de valider cette Ajout car  Le serveur à  reçu des information Invalide");
+          localStorage.clear();
+          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+          return ; 
+        }
+        else if (error.status == HttpStatusCode.InternalServerError){
+          alert("Un probléme Serveur  Lors de chargement de votre Image  Veuillez Réssez ultérieurement "); 
+          localStorage.clear();
+          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+          return ;  
+        }
         else {
           alert("Ce menu  n'a pas pu être supprimer. soit  il s'agit d'un probléme réseau  ou une erreur serveur. Dans ce cas, veuillez contacter l'administration");
           localStorage.clear();
           this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+          return;  
         }
       }
 

@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit{
 
     this.isLoading =  true 
      const User = {
-       email : this.signinform.controls['email'].value ,
+       email : this.signinform.controls['email'].value,
        password : this.signinform.controls['password'].value 
    } 
    

@@ -23,6 +23,7 @@ import { EditMenuComponent } from './core-cantine/menus/edit-menu/edit-menu.comp
 import { ValidatorComponent } from './globalCompenets/validator/validator.component';
 import { ExpiredSessionComponent } from './globalCompenets/expired-session/expired-session.component';
 import { CommonModule } from '@angular/common';
+import { EmailValidationComponent } from './Authentification/sign-up/email-validation/email-validation.component';
  
 
 @NgModule({
@@ -43,6 +44,7 @@ import { CommonModule } from '@angular/common';
     EditMenuComponent,
     ValidatorComponent,
     ExpiredSessionComponent,
+    EmailValidationComponent,
   ],
   imports: [
     CommonModule,

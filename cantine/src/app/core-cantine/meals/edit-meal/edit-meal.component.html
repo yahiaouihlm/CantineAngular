@@ -24,7 +24,7 @@
                             formControlName="mealname"
                             class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['mealname'].errors }"
-                            [(ngModel)]="meal.label"
+                           
                           />
                           <div *ngIf="submitted && f['mealname'].errors" class="invalid-feedback">
                             <div *ngIf="f['mealname'].errors['required']"> Nom  du plat  est requis </div>
@@ -44,7 +44,7 @@
                               formControlName="mealdescription"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealdescription'].errors }"
-                              [(ngModel)]="meal.description"
+                            
                             />
                             <div *ngIf="submitted && f['mealdescription'].errors" class="invalid-feedback">
                               <div *ngIf="f['mealdescription'].errors['required']"> Description  du plat  est requis </div>
@@ -66,7 +66,7 @@
                               formControlName="mealprice"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealprice'].errors }"
-                              [(ngModel)]="meal.prixht"
+                         
                               /> 
                             
                             <div *ngIf="submitted && f['mealprice'].errors" class="invalid-feedback">
@@ -81,7 +81,7 @@
                               formControlName="mealquantity"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealquantity'].errors }"
-                              [(ngModel)]="meal.quantite"
+                         
                               /> 
                               <div *ngIf="submitted && f['mealquantity'].errors" class="invalid-feedback">
                                 <div *ngIf="f['mealquantity'].errors['required']"> Quantité  est requis </div>
@@ -100,7 +100,7 @@
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f['mealcategory'].errors }"
                               name="Catégorie"
-                              [(ngModel)]="meal.categorie"
+                           
                               > 
                               <option value="">{{meal.categorie}}</option>
                               <option value="Hamburgers">Hamburgers </option>

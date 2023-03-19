@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,7 +56,7 @@ export class EditMealComponent implements OnInit {
 
   }
 
-
+ 
 
   removeMeal(): void {
     console.log("je suis dans le remove  mail   ");
@@ -77,21 +77,6 @@ export class EditMealComponent implements OnInit {
 
             }
 
-            else if (next.message === "CONSTRAINT" && next.httpStatus == "OK" && next.data != undefined) {
-              const result = this.matDialog.open(ValidatorComponent, {
-                data:
-                {
-                  message: " Il est impossible de supprimer  Ce plats car il  est présent dans  Certains  menu Vous devriez Assurer que il sont dans  aucun menu  ",
-
-                }
-              });
-              result.afterClosed().subscribe(result => {
-                this.route.navigate(['cantine/meals'], { queryParams: { reload: 'true' } });
-              })
-
-
-            }
-
             else {
               alert("Ce plat n'a pas pu être supprimer. Il est possible qu'il ait été supprimé ou qu'il s'agisse d'une erreur serveur. Dans ce cas, veuillez contacter l'administration");
               localStorage.clear();
@@ -100,15 +85,7 @@ export class EditMealComponent implements OnInit {
           },
 
           error: error => {
-            if (error.status == 403 && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
-              localStorage.clear();
-              this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
-              return;
-            }
-
-            alert("Ce plat n'a pas pu être supprimer. soit  il s'agit d'un probléme réseau  ou une erreur serveur. Dans ce cas, veuillez contacter l'administration");
-            localStorage.clear();
-            this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+             this.errorHandler(error);
           }
         });
       }
@@ -184,16 +161,7 @@ export class EditMealComponent implements OnInit {
         }
       },
       error: error => {
-        if (error.status == 403 && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
-          localStorage.clear();
-          this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
-          return;
-        }
-        else {
-          localStorage.clear();
-          alert(this.messageError);
-          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
-        }
+        this.errorHandler(error);
       }
 
     })
@@ -213,6 +181,7 @@ export class EditMealComponent implements OnInit {
             this.meal.description = next.data.description;
             this.meal.quantite = next.data.quantite;
             this.meal.image = next.data.image;
+            this.matchFormsValue();
           }
 
           else {
@@ -223,16 +192,7 @@ export class EditMealComponent implements OnInit {
 
         },
         error: error => {
-          if (error.status == 403 && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
-            localStorage.clear();
-            this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
-            return;
-          }
-
-
-          localStorage.clear();
-          alert(this.messageError);
-          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+          this.errorHandler(error)
         }
 
       })
@@ -247,4 +207,61 @@ export class EditMealComponent implements OnInit {
 
 
 
+  errorHandler(error: any) {
+    if (error.status == HttpStatusCode.Forbidden && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
+      localStorage.clear();
+      this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else if (error.status == HttpStatusCode.MethodNotAllowed) {
+     console.log("je suis dans methode  not alloweed ");
+     
+      const result = this.matDialog.open(ValidatorComponent, {
+        data:
+        {
+          message: " Il est impossible de supprimer  Ce plats car il  est présent dans  Certains  menu Vous devriez Assurer que il sont dans  aucun menu  ",
+
+        }
+      });
+      result.afterClosed().subscribe(result => {
+        this.route.navigate(['cantine/meals'], { queryParams: { reload: 'true' } });
+      })
+
+      
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else if (error.status = HttpStatusCode.InternalServerError) {
+      localStorage.clear();
+      alert(error.error.message);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else if (error.status = HttpStatusCode.BadRequest) {
+      console.log("je suis  dans     labad request ");
+      
+      localStorage.clear();
+      alert(error.error.message);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else {
+      console.log("je suis dans  le else ");
+      
+      localStorage.clear();
+      alert(this.messageError);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+    }
+  }
+
+   
+  matchFormsValue() {
+    this.newmeal.patchValue({
+      mealname: this.meal.label,
+      mealdescription: this.meal.description,
+      mealprice: this.meal.prixht,
+      mealquantity: this.meal.quantite,
+      mealcategory :  this.meal.categorie
+    });
+  }
 }

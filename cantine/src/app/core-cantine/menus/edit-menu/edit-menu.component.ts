@@ -109,6 +109,7 @@ export class EditMenuComponent implements OnInit {
 
     this.cantineHandlrService.updateMenu(formData, this.menuToedit.idmenu).subscribe({
       next: next => {
+         
         if (next.message == "SAVED" && next.httpStatus == "OK" && next.data != undefined) {
           this.matDialog.open(ValidatorComponent, {
             data: { message: "  Vos modifications ont étais bien  Enregistré Menu à était Enregistré avec succée " }
@@ -129,6 +130,8 @@ export class EditMenuComponent implements OnInit {
         }
         else {
           localStorage.clear();
+        console.log(error);
+        
           alert(this.messageError);
           this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
         }
