@@ -6,6 +6,7 @@ import { ValidatorComponent } from 'src/app/globalCompenets/validator/validator.
 import { Meal } from 'src/app/Models/meal';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 import { PlatListComponent } from '../plat-list/plat-list.component';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-menu',
@@ -32,6 +33,8 @@ export class EditMenuComponent implements OnInit {
 
   constructor(private router: ActivatedRoute, private cantineHandlrService: CantineHandlerService, private route: Router, private matDialog: MatDialog) { }
 
+
+     /*   TODO    il  faut  ajouter la suppression  */ 
   ngOnInit(): void {
     const param = this.router.snapshot.paramMap.get('id');
     if (param == null || param == undefined)
@@ -78,13 +81,9 @@ export class EditMenuComponent implements OnInit {
 
   }
 
-
   get f(): { [key: string]: AbstractControl } {
     return this.newmenu.controls;
   }
-
-
-
 
 
   updateMeal() {
@@ -123,20 +122,10 @@ export class EditMenuComponent implements OnInit {
         }
       },
       error: error => {
-        if (error.status == 403 && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
-          localStorage.clear();
-          this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
-          return;
-        }
-        else {
-          localStorage.clear();
-        console.log(error);
-        
-          alert(this.messageError);
-          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
-        }
+        this.errorHandler(error);
       }
-    })
+    }
+    )
   }
 
 
@@ -162,16 +151,7 @@ export class EditMenuComponent implements OnInit {
         }
       },
       error: error => {
-        if (error.status == 403 && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
-          localStorage.clear();
-          this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
-          return;
-        }
-        else {
-          localStorage.clear();
-          alert(this.messageError);
-          this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
-        }
+        this.errorHandler(error);
       }
     })
   }
@@ -208,6 +188,30 @@ export class EditMenuComponent implements OnInit {
   }
 
 
+  errorHandler(error: any) {
+    if (error.status == HttpStatusCode.Forbidden && error.error.message === "EXPIRED_TOKEN" && error.error.data === "EXPIRED_TOKEN") {
+      localStorage.clear();
+      this.route.navigate(['cantine/ExpiredSession'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else if (error.status = HttpStatusCode.InternalServerError) {
+      localStorage.clear();
+      alert(error.error.message);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else if (error.status = HttpStatusCode.BadRequest) {      
+      localStorage.clear();
+      alert(error.error.message);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+      return;
+    }
+    else {
+            localStorage.clear();
+      alert(this.messageError);
+      this.route.navigate(['cantine'], { queryParams: { reload: 'true' } });
+    }
+  }
 
 
 }
