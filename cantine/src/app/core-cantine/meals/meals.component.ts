@@ -4,12 +4,17 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { Meal, MealAnser } from 'src/app/Models/meal';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
 import {ValidateUser} from 'src/app/globalCompenets/validator/validator.component';
+import { Order } from '../orders/order-service/Order';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderDialComponent } from '../orders/order-dial/order-dial.component';
+import { BascketService } from '../orders/order-service/bascket.service';
+
 
 @Component({
   selector: 'app-meals',
   templateUrl: './meals.component.html',
   styles: [],
-  providers : [CantineHandlerService]
+  providers : [CantineHandlerService ,  BascketService ]
 })
 export class MealsComponent  implements OnInit{
    mealAnser !  :  MealAnser ; 
@@ -23,7 +28,7 @@ export class MealsComponent  implements OnInit{
 }
 
  messageError = "Un problème est survenu ! Nous vous invitons à vous reconnecter. Si le problème persiste, veuillez contacter l'administration de votre école"
- constructor  (private route : Router ,  private cantineHandlerService  : CantineHandlerService) {}
+ constructor  (private route : Router ,  private cantineHandlerService  : CantineHandlerService , private  basket :  BascketService,  private dialog: MatDialog ) {}
   
   
 
@@ -74,14 +79,7 @@ export class MealsComponent  implements OnInit{
          this.route.navigate(['cantine/meals/addMeal'])
     }
    
-    addToBascket (meal :  Meal){
-      const token =  localStorage.getItem('token'); 
-      if  (token == undefined || token == null ) {
-            alert("Veuillez  Vous  connecter pour    faire une commande  "); 
-            this.route.navigate(['cantine/signIn']);  
-      }
-    }    
-    
+  
     //  aller  vers  le composant (editer  le plat si  l'admin )
     editmeal(id:number) :  void  {
           this.route.navigate(['cantine/meals/editMeal',  id ])
@@ -94,6 +92,33 @@ export class MealsComponent  implements OnInit{
         throw error ; 
         return of(errorValue);
     }
+
+
+
+
+
+    addToBascket (meal :  Meal){
+
+      if  (this.user.token != null  && this.user.token != undefined && this.user.role === 'user' ){
+           this.basket.setMealInOrder(meal);
+           console.log(this.basket);
+           
+           this.dialog.open (OrderDialComponent, {
+            data: { message: " Vous  avez Ajoute " + meal.label +"  à "+ meal.prixht + " £ " + "  A votre Panier " }
+          });
+           
+      }
+      else {
+         alert( " Vous  dervriez  se connecter  pour  ajouter  au  panier  ")
+         this.route.navigate(['cantine/signIn'] );   
+      }
+
+
+      
+    }    
+    
+
+    
    
 }
  

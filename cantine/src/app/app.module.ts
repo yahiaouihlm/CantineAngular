@@ -24,6 +24,8 @@ import { ValidatorComponent } from './globalCompenets/validator/validator.compon
 import { ExpiredSessionComponent } from './globalCompenets/expired-session/expired-session.component';
 import { CommonModule } from '@angular/common';
 import { EmailValidationComponent } from './Authentification/sign-up/email-validation/email-validation.component';
+import { OrderDialComponent } from './core-cantine/orders/order-dial/order-dial.component';
+import { OrdersComponent } from './core-cantine/orders/orders.component';
  
 
 @NgModule({
@@ -45,6 +47,8 @@ import { EmailValidationComponent } from './Authentification/sign-up/email-valid
     ValidatorComponent,
     ExpiredSessionComponent,
     EmailValidationComponent,
+    OrderDialComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,

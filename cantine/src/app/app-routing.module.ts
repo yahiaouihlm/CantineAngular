@@ -12,6 +12,7 @@ import { NewMenuComponent } from './core-cantine/menus/new-menu/new-menu.compone
 import { EditMenuComponent } from './core-cantine/menus/edit-menu/edit-menu.component';
 import { ExpiredSessionComponent } from './globalCompenets/expired-session/expired-session.component';
 import { EmailValidationComponent } from './Authentification/sign-up/email-validation/email-validation.component';
+import { OrdersComponent } from './core-cantine/orders/orders.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path : 'cantine/menus/addMenu',  component : NewMenuComponent},
   {path : 'cantine/menus/editMenu/:id' , component : EditMenuComponent},
   {path: 'cantine/user/myprofile', component : ProfileComponent},
+  {path :  'cantine/user/panier',  component :  OrdersComponent},
   {path :'cantine' ,  component:HomeComponent },
   {path :  'cantine/ExpiredSession' , component : ExpiredSessionComponent},
   {path :  'cantine/user/ActivatiedAcount/:useremail',  component :  EmailValidationComponent}, 

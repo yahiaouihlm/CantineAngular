@@ -39,10 +39,11 @@ export class MainNavComponent  implements OnInit {
      else {
         this.Username =  username;  
      }
-     
-   
   }
 
+  gotopanier() :  void {
+    this.route.navigate(['cantine/user/panier']);  
+  }
   
 
 }

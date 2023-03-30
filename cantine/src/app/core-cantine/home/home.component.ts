@@ -22,4 +22,6 @@ export class HomeComponent {
   gotomenus() :  void  {
     this.route.navigate(['cantine/menus']); 
   }
+
+  
 }
