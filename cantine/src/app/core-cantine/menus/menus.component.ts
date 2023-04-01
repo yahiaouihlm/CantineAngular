@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { Menu } from 'src/app/Models/menu';
 import { CantineHandlerService } from 'src/app/services/cantine-handler.service';
+import { Order } from '../orders/order-service/Order';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderDialComponent } from '../orders/order-dial/order-dial.component';
 
 @Component({
   selector: 'app-menus',
@@ -13,11 +16,12 @@ import { CantineHandlerService } from 'src/app/services/cantine-handler.service'
 export class MenusComponent  implements OnInit{
   isLoading =  true  ;  
   meuns: Menu[] = [];
+  private  order :  Order =  new Order(); 
   user = {
        role  :   localStorage.getItem('rol'),
        token :  localStorage.getItem('Authorization')
   }
-  constructor (private route :  Router,  private cantineHandlerService :  CantineHandlerService) {}
+  constructor (private route :  Router,  private cantineHandlerService :  CantineHandlerService, private dialog: MatDialog) {}
  
   ngOnInit(): void {
 
@@ -82,4 +86,34 @@ export class MenusComponent  implements OnInit{
   goToNewMenu () {
       this.route.navigate (['cantine/menus/addMenu']);
   }
+
+
+
+
+  addToBascket (menu:  Menu){
+ 
+    if  (this.user.token != null  && this.user.token != undefined && this.user.role === 'user' ){
+        this.order.menus.push(menu);
+        let bascket = localStorage.getItem('Order');
+       if (!bascket){
+            localStorage.setItem('Order' ,   JSON.stringify( this.order  ))
+            sessionStorage.setItem('Order',  JSON.stringify(this.order))
+       }else{  
+             let smallbasket :  Order =  JSON.parse(bascket);   
+             smallbasket.menus.push(menu);                  
+          } 
+                 
+       this.dialog.open (OrderDialComponent, {
+        data: { message: " Vous  avez Ajoute " + menu.label +"  à "+ menu.prixht + " £ " + "  A votre Panier " }
+      });
+       
+  }
+  else {
+     alert( " Vous  dervriez  se connecter  pour  ajouter  au  panier  ")
+     this.route.navigate(['cantine/signIn'] );   
+  }
+
+
+  
+}    
 }

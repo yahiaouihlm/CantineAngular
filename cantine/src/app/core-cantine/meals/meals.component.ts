@@ -20,7 +20,7 @@ export class MealsComponent  implements OnInit{
    mealAnser !  :  MealAnser ; 
    meals: Meal[] | undefined   
    image :  File   | undefined; 
-    
+   order : Order= new Order();
    user =  {
     token :  localStorage.getItem('Authorization'),
     role  :  localStorage.getItem('rol'),
@@ -98,11 +98,18 @@ export class MealsComponent  implements OnInit{
 
 
     addToBascket (meal :  Meal){
-
-      if  (this.user.token != null  && this.user.token != undefined && this.user.role === 'user' ){
-           this.basket.setMealInOrder(meal);
-           console.log(this.basket);
-           
+ 
+        if  (this.user.token != null  && this.user.token != undefined && this.user.role === 'user' ){
+            this.order.meals.push(meal);
+            let bascket = localStorage.getItem('Order');            
+           if (!bascket){                
+               localStorage.setItem('Order' ,   JSON.stringify( this.order  ))
+           }else{  
+             let smallbasket :  Order =  JSON.parse(bascket);   
+             smallbasket.meals.push(meal);                  
+                localStorage.setItem('Order' ,   JSON.stringify( smallbasket ))
+              } 
+                     
            this.dialog.open (OrderDialComponent, {
             data: { message: " Vous  avez Ajoute " + meal.label +"  à "+ meal.prixht + " £ " + "  A votre Panier " }
           });

@@ -1,10 +1,54 @@
 <app-main-nav></app-main-nav>
 
-   <main class="main-panier">
-       
-     
-        
+<div class="p-5 bg-image" style="
+background-image: url('../../../assets/mainimage4.jpg');
+ height: 300px;
+ "></div>
 
-   </main>
+<button class="btn center " (click)="goTomeals()"> Aller Au  Plats  </button>
+<button class="btn center " (click)="goToOrder()"> Aller  Au  Menus  </button>
+
+   <main class="main-panier">
+               <div class="center order-title" >  Ma Commande </div>
+            <div class="meals-block">
+               <div class="center">  Les  Plats   </div>
+               <div *ngFor=" let meal of order.meals " style="margin: 3%;">
+                  <div class="meals-card">
+                     <div class="item">{{meal.label}}</div>
+                     <div class="item">{{meal.prixht}} £</div>
+                     <div class="img-plat"> <img mat-card-sm-image src={{meal.image}}></div>
+                  </div>
+               </div>
+            </div>   
+
+             <div *ngFor=" let meal of order.menus " class="col m4 s6">
+             </div>
+            
+             <button class="btn center " (click)="ValidateOrder()"> Valider   </button>
+         <button class="btn left " (click)="canalOrder()"> Annuler Ma commande  </button>
+
+      </main>
 
 <app-main-footer></app-main-footer>
+
+
+
+
+<!--
+   
+   <mat-card class="example-card">
+                  <mat-card-header>
+                    <mat-card-title-group>
+                      <mat-card-title>{{meal.label}}</mat-card-title>
+                      <mat-card-subtitle>Small</mat-card-subtitle>
+                      <mat-card-subtitle>Small</mat-card-subtitle>
+
+                      <img mat-card-sm-image src={{meal.image}} >
+                    </mat-card-title-group>
+                  </mat-card-header>
+                  <mat-card-content>
+               
+                  </mat-card-content>
+                </mat-card>
+
+-->

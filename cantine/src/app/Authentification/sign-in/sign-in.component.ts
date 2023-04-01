@@ -101,6 +101,11 @@ export class SignInComponent implements OnInit{
 
   getUserNam(username : string ) : string {
     return username.replace("@social.aston-ecole.com" ,'');
+  }
 
+
+
+  forgetpassword() : void  {
+     this.route.navigate(['cantine/users/forgetpassword']);  
   }
 }

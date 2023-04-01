@@ -1,0 +1,23 @@
+.main-panier{
+ //   background-color:  black ;
+   margin: 3%;
+}
+
+.meals-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+      border: 2px solid rgb(219, 225, 229) ;
+}
+.item{
+    font-size: 1.3rem;
+    padding-top: 2%;
+}
+ img{
+    width: 150px;
+ }
+
+
+ .order-title{
+font-size: 3.5rem;
+ }

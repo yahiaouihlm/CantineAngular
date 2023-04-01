@@ -26,7 +26,10 @@ import { CommonModule } from '@angular/common';
 import { EmailValidationComponent } from './Authentification/sign-up/email-validation/email-validation.component';
 import { OrderDialComponent } from './core-cantine/orders/order-dial/order-dial.component';
 import { OrdersComponent } from './core-cantine/orders/orders.component';
- 
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ForgetPasswordComponent } from './Authentification/forget-password/forget-password.component';
+
 
 @NgModule({
   declarations: [
@@ -49,6 +52,7 @@ import { OrdersComponent } from './core-cantine/orders/orders.component';
     EmailValidationComponent,
     OrderDialComponent,
     OrdersComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +62,8 @@ import { OrdersComponent } from './core-cantine/orders/orders.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
   ],
 
