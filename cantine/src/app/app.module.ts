@@ -29,6 +29,7 @@ import { OrdersComponent } from './core-cantine/orders/orders.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForgetPasswordComponent } from './Authentification/forget-password/forget-password.component';
+import { EmptyComponentComponent } from './Authentification/forget-password/empty-component.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { ForgetPasswordComponent } from './Authentification/forget-password/forg
     OrderDialComponent,
     OrdersComponent,
     ForgetPasswordComponent,
+    EmptyComponentComponent,
   ],
   imports: [
     CommonModule,
