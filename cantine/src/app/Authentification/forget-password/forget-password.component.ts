@@ -70,13 +70,13 @@ export class ForgetPasswordComponent {
 
   onSendcode() {
     this.validate = true;
-
+    this.isLoading = true ; 
     if (this.codeForm.invalid) {
+      this.isLoading=false; 
       return;
     }
-    let code = this.codeForm.controls['code'].value;
-    console.log(code);
-
+    this.SendCodeToCheckEmail(); 
+    
   }
 
 
@@ -86,12 +86,12 @@ export class ForgetPasswordComponent {
 
   onSendpassword() {    
       this.login= true  ; 
+      this.isLoading= true; 
       if (this.changePassword.invalid) {
+        this.isLoading=false; 
         return;
       }
-
-      console.log("bien  valider ");
-      
+     this. sendNewPassword () ;      
   }
 
 
@@ -156,14 +156,25 @@ export class ForgetPasswordComponent {
     })
   }
 
-  SendCodeToCheckEmail(code: string): void {
+  /*Vérifier Si  Le code Est  Valide */
+  SendCodeToCheckEmail(): void {
     let userinfoasObjet: object = {
       email: this.emailFrom.controls["email"].value,
-      code: code
+      code: this.codeForm.controls['code'].value
     }
     this.userOrderService.sendCodeTocheckEmail(userinfoasObjet).subscribe({
       next: next => {
-        console.log("Vous Avez Bien  réussi");
+        if  (next.message == "FINDED" && next.httpStatus=="OK" && next.data !=undefined){
+          this.usercodecompenet = false; 
+          this.chagepasswordComponent =  true ; 
+          this.isLoading = false  ; 
+        }
+        else{
+          alert("Une Erreur c'est Produite Veuillez reéessez A Nouveau "); 
+          localStorage.clear();
+          this.route.navigate(['cantine/signIn']);
+          return ; 
+        }
 
       },
       error: error => {
@@ -177,6 +188,8 @@ export class ForgetPasswordComponent {
         // si  le  code est incorrect 
         else if (error.status == HttpStatusCode.BadRequest) {
           this.incorrectCode = true;
+          this.isLoading = false ; 
+
           return;
         }
         //  si  le  code est Expiré  
@@ -201,6 +214,55 @@ export class ForgetPasswordComponent {
 
   }
 
+  /* Proceder  au  changement de mot  de passe  */
+  sendNewPassword () : void {
+    let newUserInfo  : Object = {
+      email :  this.emailFrom.controls["email"].value,
+      code :  this.codeForm.controls['code'].value,
+      password :  this.changePassword.controls["newpassword"].value
+    };
+     this.userOrderService.sendNewPassword (newUserInfo).subscribe({
+         next :  next => {
+             if (next.message == "CHANGED" && next.httpStatus=="OK" && next.data != undefined){
+              this.matDialog.open(EmptyComponentComponent, {
+                data: { message: " Votre Mot De Passe Est Correctement Changé "},
+              }); 
+              localStorage.clear();
+              this.isLoading =  false ;
+              this.route.navigate(['cantine/signIn']);
+              return;
+            }
+             else{
+              alert(" Une Erreur  S'est produite  Dans Le serveur Veuillez reéessez ultérieuremement ");
+              localStorage.clear();
+              this.isLoading =  false ; 
+              this.route.navigate(['cantine/signIn']);
+              return;
+             }
+         }, 
+         error : error =>{
+             if  (error.status == HttpStatusCode.NotFound) {
+              alert("Votre Email  Ne  corresponds Pas Veuillez reéessez ultérieuremement ");
+              localStorage.clear();
+              this.route.navigate(['cantine/signIn']);
+              return;
+             }
+             else if (error.status == HttpStatusCode.BadRequest){
+              alert("Le code Est Incorrecte ou"+ error.error.message+"Veuillez reéessez ultérieuremement ");
+              localStorage.clear();
+              this.route.navigate(['cantine/signIn']);
+              return; 
+             }
 
+             else if  (error.status == HttpStatusCode.NotAcceptable){
+              alert(" Impossible de Valider  Votre Mot De passe Car  Le code  de Validation est Expiré Veuillez reéessez ultérieuremement ");
+              localStorage.clear();
+              this.route.navigate(['cantine/signIn']);
+              return;  
+            }
+
+         } 
+     });
+  }
 
 }

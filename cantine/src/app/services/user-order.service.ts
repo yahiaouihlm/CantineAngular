@@ -9,9 +9,14 @@ export class UserOrderService {
   readonly API_URL="http://localhost:8080/";
   readonly ENDPOINTSENDCODE  =  "cantine/users/forgetpassword";
   readonly ENDPOINTCHECKCODE  = "cantine/users/forgetpassword/checkCode"
- 
+  readonly ENDPOINTNEWPASSWORD = "cantine/users/forgetpassword/changePassword";
  
   constructor(private  httpClient : HttpClient) { }
+
+   sendNewPassword (newUserInfo : object){
+    let url =  (this.API_URL + this.ENDPOINTNEWPASSWORD); 
+    return this.httpClient.post<Answer>(url, newUserInfo); 
+   }
 
   sendEmailToSendCode(useremail : object ) {
     let url =  (this.API_URL + this.ENDPOINTSENDCODE); 
