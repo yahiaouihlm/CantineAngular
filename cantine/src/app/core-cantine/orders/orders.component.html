@@ -10,20 +10,27 @@ background-image: url('../../../assets/mainimage4.jpg');
 
    <main class="main-panier">
                <div class="center order-title" >  Ma Commande </div>
-            <div class="meals-block">
-               <div class="center">  Les  Plats   </div>
+            <div class="meals-block col-xs-12 ">
+               <div class="center">  Mes  Plats   </div>
                <div *ngFor=" let meal of order.meals " style="margin: 3%;">
                   <div class="meals-card">
                      <div class="item">{{meal.label}}</div>
                      <div class="item">{{meal.prixht}} £</div>
                      <div class="img-plat"> <img mat-card-sm-image src={{meal.image}}></div>
+                     <div class="item"><button class="btn" (click)="removeMealFromOrder(meal)">Supprimer</button></div>
                   </div>
                </div>
             </div>   
-
-             <div *ngFor=" let meal of order.menus " class="col m4 s6">
+               <hr>
+               <div class="center">  Mes  Menu    </div>
+             <div *ngFor=" let menu of order.menus " class="col m4 s6">
+               <div class="meals-card">
+                  <div class="item">{{menu.label}}</div>
+                  <div class="item">{{menu.prixht}} £</div>
+                  <div class="img-plat"> <img mat-card-sm-image src={{menu.image}}></div>
+                  <div class="item"><button class="btn" (click)="removeMenuFromOrder(menu)">Supprimer</button></div>
+               </div>
              </div>
-            
              <button class="btn center " (click)="ValidateOrder()"> Valider   </button>
          <button class="btn left " (click)="canalOrder()"> Annuler Ma commande  </button>
 

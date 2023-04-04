@@ -36,7 +36,7 @@ background-image: url('../../../assets/mainimage4.jpg');
                   </div>
                        <div class="meal-handler center" style="margin-bottom:5% ;">
                              <button *ngIf="(user.role == 'admin'  &&   user.token != undefined ) 'admin'" class=" btn"  (click)="editmenu(menu.idmenu)"> Modifier Le Menu </button>
-                             <button *ngIf="user.role  != 'admin'" class=" btn"> Ajouter Au Panier </button>
+                             <button *ngIf="user.role  != 'admin'" class=" btn" (click)="addToBascket(menu)"> Ajouter Au Panier </button>
                         </div>
                 </div>
              </div>

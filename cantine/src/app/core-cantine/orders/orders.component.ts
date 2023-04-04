@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BascketService } from './order-service/bascket.service';
 import { Order } from './order-service/Order';
 import { Router } from '@angular/router';
+import { Meal } from 'src/app/Models/meal';
+import { Menu } from 'src/app/Models/menu';
 @Component({
   selector: 'app-orders',
   templateUrl:"./orders.component.html",
@@ -19,7 +21,8 @@ export class OrdersComponent implements OnInit {
    if (bascket){
      this.order = JSON.parse (bascket); 
    }
- 
+   console.log(this.order);
+   
    
         
   }
@@ -33,7 +36,8 @@ export class OrdersComponent implements OnInit {
   canalOrder() : void   {
 
     //   il   manque un  redirection 
-     localStorage.removeItem('Order'); 
+     localStorage.removeItem('Order');
+     location.reload(); 
   }
 
   goTomeals() : void {
@@ -44,7 +48,27 @@ export class OrdersComponent implements OnInit {
       this.router.navigate(['cantine/menus'])
 
       }
+ 
+  removeMealFromOrder (meal :  Meal ) {
+    let  bascket  = localStorage.getItem("Order"); 
+    if (bascket != undefined || bascket !=null ){
+      this.order = JSON.parse (bascket); 
+      let  index = this.order.meals.indexOf(meal); 
+      this.order.meals.splice(index, 1);
+      localStorage.setItem('Order', JSON.stringify (this.order) )
+    }
+  }
 
+
+  removeMenuFromOrder(menu: Menu ){
+    let  bascket  = localStorage.getItem("Order"); 
+    if (bascket != undefined || bascket !=null ){
+      this.order = JSON.parse (bascket); 
+      let  index = this.order.menus.indexOf(menu); 
+      this.order.menus.splice(index, 1);
+      localStorage.setItem('Order', JSON.stringify (this.order) )
+    }
+  }
 
    
 }

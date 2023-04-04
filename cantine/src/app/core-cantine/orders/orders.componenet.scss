@@ -1,6 +1,7 @@
 .main-panier{
- //   background-color:  black ;
+    background-color:  rgb(213, 225, 224) ;
    margin: 3%;
+   border-radius: 10%;
 }
 
 .meals-card{
@@ -19,5 +20,9 @@
 
 
  .order-title{
-font-size: 3.5rem;
+  font-size: 3.5rem;
+ }
+ hr{
+    width: 60%;
+    transform: translateX(30%);
  }

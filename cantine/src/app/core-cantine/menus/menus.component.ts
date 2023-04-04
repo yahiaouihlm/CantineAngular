@@ -97,10 +97,10 @@ export class MenusComponent  implements OnInit{
         let bascket = localStorage.getItem('Order');
        if (!bascket){
             localStorage.setItem('Order' ,   JSON.stringify( this.order  ))
-            sessionStorage.setItem('Order',  JSON.stringify(this.order))
        }else{  
              let smallbasket :  Order =  JSON.parse(bascket);   
-             smallbasket.menus.push(menu);                  
+             smallbasket.menus.push(menu);   
+             localStorage.setItem('Order' ,   JSON.stringify( smallbasket ))               
           } 
                  
        this.dialog.open (OrderDialComponent, {

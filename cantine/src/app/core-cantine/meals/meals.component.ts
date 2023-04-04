@@ -96,9 +96,9 @@ export class MealsComponent  implements OnInit{
 
 
 
+    //si le localStorage est undefine cree Order et inserer  le Meal sinon  recupéré  le panier deja  existant ajouter un nouveau et inserer dans  Order
 
     addToBascket (meal :  Meal){
- 
         if  (this.user.token != null  && this.user.token != undefined && this.user.role === 'user' ){
             this.order.meals.push(meal);
             let bascket = localStorage.getItem('Order');            
@@ -108,7 +108,7 @@ export class MealsComponent  implements OnInit{
              let smallbasket :  Order =  JSON.parse(bascket);   
              smallbasket.meals.push(meal);                  
                 localStorage.setItem('Order' ,   JSON.stringify( smallbasket ))
-              } 
+            } 
                      
            this.dialog.open (OrderDialComponent, {
             data: { message: " Vous  avez Ajoute " + meal.label +"  à "+ meal.prixht + " £ " + "  A votre Panier " }
