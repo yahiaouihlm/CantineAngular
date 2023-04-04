@@ -30,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForgetPasswordComponent } from './Authentification/forget-password/forget-password.component';
 import { EmptyComponentComponent } from './Authentification/forget-password/empty-component.component';
+import { BasketAdminComponent } from './Admin/basket-admin/basket-admin.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { EmptyComponentComponent } from './Authentification/forget-password/empt
     OrdersComponent,
     ForgetPasswordComponent,
     EmptyComponentComponent,
+    BasketAdminComponent,
   ],
   imports: [
     CommonModule,

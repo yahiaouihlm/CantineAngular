@@ -12,11 +12,18 @@ background-image: url('../../../assets/mainimage4.jpg');
 
 
  <div *ngIf="isLoading==false" class="menus">     <!-- affichage  quand le chargement des menus  est  terminer -->
-   
-   
-      <div  class="btn-add center ">
-      <button    class="btn" (click)="goToNewMenu ()"> j'ajoute un Un menu </button>
+  
+  <div class="center" style="width: 50%; transform: translateX(50%);  ">
+         <form class="d-flex">
+                <input class="form-control form-control-lg" type="text" placeholder=" Je cherche Un  Menu " aria-label=".form-control-lg example"> 
+               <button class="btn" type="submit">Search</button>
+            </form>
    </div>
+    
+
+      <div *ngIf="user.role=='admin' "  class="btn-add center ">
+      <button    class="btn" (click)="goToNewMenu ()"> j'ajoute un Un menu </button>
+     </div>
 
 
    <div class="container">

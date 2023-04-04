@@ -14,6 +14,7 @@ import { ExpiredSessionComponent } from './globalCompenets/expired-session/expir
 import { EmailValidationComponent } from './Authentification/sign-up/email-validation/email-validation.component';
 import { OrdersComponent } from './core-cantine/orders/orders.component';
 import { ForgetPasswordComponent } from './Authentification/forget-password/forget-password.component';
+import { BasketAdminComponent } from './Admin/basket-admin/basket-admin.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path :  'cantine/ExpiredSession' , component : ExpiredSessionComponent},
   {path : 'cantine/users/forgetpassword',  component :  ForgetPasswordComponent},
   {path :  'cantine/user/ActivatiedAcount/:useremail',  component :  EmailValidationComponent}, 
+  {path :  'cantine/admin/baskets',  component :  BasketAdminComponent},
   {path : '' ,  redirectTo:'/cantine',  pathMatch: 'full'}
   
 ];

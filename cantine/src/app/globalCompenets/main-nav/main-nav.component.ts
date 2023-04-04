@@ -39,9 +39,16 @@ export class MainNavComponent  implements OnInit {
      else {
         this.Username =  username;  
      }
+     if  (this.user.role == 'admin'){
+      this.nameorder = "Commandes"
+     }
   }
 
   gotopanier() :  void {
+    if  (this.user.role == 'admin'){
+      this.route.navigate(['cantine/admin/baskets']);
+      return ; 
+     }
     this.route.navigate(['cantine/user/panier']);  
   }
   

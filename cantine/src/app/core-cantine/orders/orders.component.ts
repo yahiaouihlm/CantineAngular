@@ -53,9 +53,18 @@ export class OrdersComponent implements OnInit {
     let  bascket  = localStorage.getItem("Order"); 
     if (bascket != undefined || bascket !=null ){
       this.order = JSON.parse (bascket); 
-      let  index = this.order.meals.indexOf(meal); 
-      this.order.meals.splice(index, 1);
-      localStorage.setItem('Order', JSON.stringify (this.order) )
+    let index = -1;  
+      for( let compteur = 0 ; compteur < this.order.meals.length;  compteur++ )
+            if  (this.order.meals[compteur].id === meal.id ){
+                   index =  compteur;     
+                   break;              
+            }
+      if  (index != -1 ){
+        this.order.meals.splice(index, 1);
+        localStorage.setItem('Order', JSON.stringify (this.order) )
+        return; 
+      }
+      return; 
     }
   }
 
@@ -64,9 +73,19 @@ export class OrdersComponent implements OnInit {
     let  bascket  = localStorage.getItem("Order"); 
     if (bascket != undefined || bascket !=null ){
       this.order = JSON.parse (bascket); 
-      let  index = this.order.menus.indexOf(menu); 
-      this.order.menus.splice(index, 1);
-      localStorage.setItem('Order', JSON.stringify (this.order) )
+      let index = -1;  
+
+      for( let compteur = 0 ; compteur < this.order.menus.length;  compteur++ )
+            if  (this.order.menus[compteur].idmenu === menu.idmenu ){
+                   index =  compteur;     
+                   break;              
+            }
+      if  (index != -1 ){
+        this.order.menus.splice(index, 1);
+        localStorage.setItem('Order', JSON.stringify (this.order) )
+        return; 
+      }
+      return; 
     }
   }
 

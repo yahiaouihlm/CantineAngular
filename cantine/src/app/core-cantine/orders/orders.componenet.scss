@@ -1,5 +1,5 @@
 .main-panier{
-    background-color:  rgb(213, 225, 224) ;
+    background-color:  rgb(224, 237, 236) ;
    margin: 3%;
    border-radius: 10%;
 }
@@ -9,6 +9,7 @@
     flex-direction: row;
     justify-content: space-around;
       border: 2px solid rgb(219, 225, 229) ;
+      border-radius: 25px 10px 25px 10px;
 }
 .item{
     font-size: 1.3rem;
